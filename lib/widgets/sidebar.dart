@@ -12,14 +12,31 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
         child: Padding(
       padding: EdgeInsets.only(top: topPadding, right: 16),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _DrawerHeader(),
-          Divider(indent: 10, endIndent: 10),
-          SizedBox(height: 10),
-          DrawerItem(name: "Home"),
-          Text("data")
+          const _DrawerHeader(),
+          const Divider(indent: 10, endIndent: 10),
+          const SizedBox(height: 10),
+          DrawerItem(
+              name: "Mi Dia",
+              icon: const Icon(Icons.home),
+              bgColor: Colors.blue.shade100),
+          const SizedBox(height: 5),
+          DrawerItem(
+              name: "Importante",
+              icon: const Icon(Icons.star),
+              bgColor: Colors.red.shade100),
+          const SizedBox(height: 5),
+          DrawerItem(
+              name: "Pendientes",
+              icon: const Icon(Icons.pending_actions),
+              bgColor: Colors.green.shade100),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Etiquetas"),
+          )
         ],
       ),
     ));
@@ -29,28 +46,37 @@ class MyDrawer extends StatelessWidget {
 class DrawerItem extends StatelessWidget {
   final String name;
   final Widget? leading;
+  final Widget? icon;
+  final Color? bgColor;
   const DrawerItem({
     super.key,
     required this.name,
     this.leading,
+    this.icon,
+    this.bgColor = Colors.black12,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      padding: const EdgeInsets.only(top: 16, bottom: 16, left: 15, right: 32),
-      decoration: const BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
-      child: Row(
-        children: [
-          const Icon(Icons.home),
-          const SizedBox(width: 15),
-          Expanded(child: Text(name)),
-          if (leading != null) leading!
-        ],
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: double.maxFinite,
+        padding:
+            const EdgeInsets.only(top: 16, bottom: 16, left: 15, right: 32),
+        decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
+        child: Row(
+          children: [
+            if (icon != null) icon!,
+            const SizedBox(width: 15),
+            Expanded(child: Text(name)),
+            if (leading != null) leading!
+          ],
+        ),
       ),
     );
   }
