@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_practica_final/widgets/sidebar.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_practica_final/config/constants.dart';
+import 'package:todo_practica_final/providers/appbar_provider.dart';
+import 'package:todo_practica_final/widgets/drawer/index.dart';
 
 class HomeScreen extends StatelessWidget {
   final Widget children;
@@ -11,13 +14,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: AppConstants.homeScaffoldKey,
       appBar: AppBar(
         centerTitle: false,
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Mi Dia"),
-            Text(
+            Text(context.watch<AppbarProvider>().title),
+            const Text(
               "Lunes, 29 de enero",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
             ),
