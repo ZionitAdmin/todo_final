@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginView extends StatelessWidget {
-  static const String name = "login_view";
+class LoginScreen extends StatelessWidget {
+  static const String name = "login_screen";
 
-  const LoginView({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Oculta el icono de hamburguesa del menú lateral
+        actions: const [],
         title: const Text('Inicio de Sesión'),
+       // Lista vacía para ocultar los iconos de notificaciones
       ),
       body: Center(
         child: Padding(
@@ -55,7 +58,7 @@ class LoginView extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Navegar al Home al pulsar el botón de iniciar sesión
-                  GoRouter.of(context).go('/');
+                  GoRouter.of(context).go('/'); // Cambia esto si deseas usar el Screen
                 },
                 child: const Text('Iniciar Sesión'),
               ),
@@ -66,4 +69,3 @@ class LoginView extends StatelessWidget {
     );
   }
 }
-
