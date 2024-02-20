@@ -15,9 +15,9 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 ThemeData darkTheme() {
-  return ThemeData(brightness: Brightness.dark, colorSchemeSeed: Colors.yellow);
+  return ThemeData(brightness: Brightness.dark, colorSchemeSeed: Colors.amber);
 }
 
 ThemeData lightTheme() {
-  return ThemeData(brightness: Brightness.light, colorSchemeSeed: Colors.blue);
+  return ThemeData(brightness: Brightness.light, colorSchemeSeed: Colors.purple);
 }
