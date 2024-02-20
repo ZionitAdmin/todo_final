@@ -3,6 +3,9 @@ import 'package:todo_practica_final/screens/home_screen.dart';
 import 'package:todo_practica_final/screens/login_screen.dart';
 import 'package:todo_practica_final/views/important_view.dart';
 import 'package:todo_practica_final/views/my_day_view.dart';
+import 'package:todo_practica_final/views/pendant_view.dart';
+
+import '../../views/project_view.dart';
 
 
 final GoRouter appRouter = GoRouter(
@@ -26,6 +29,16 @@ final GoRouter appRouter = GoRouter(
             path: '/important',
             name: ImportantView.name,
             builder: (context, state) => const ImportantView(),
+          ),
+          GoRoute(
+            path: '/pendant',
+            name: PendantView.name,
+            builder: (context, state) => const PendantView(),
+          ),
+          GoRoute(
+            path: '/project',
+            name: ProjectView.name,
+            builder: (context, state) => const ProjectView(),
           ),
         ]),
       ],
