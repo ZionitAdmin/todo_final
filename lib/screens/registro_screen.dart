@@ -17,6 +17,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
   final TextEditingController _apellidoController = TextEditingController();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
+  DateTime _fechaNacimiento = DateTime.now(); // Variable para almacenar la fecha de nacimiento
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +76,32 @@ class _RegistroScreenState extends State<RegistroScreen> {
                 },
               ),
               const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Fecha de Nacimiento: ${_fechaNacimiento.day}/${_fechaNacimiento.month}/${_fechaNacimiento.year}',
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: _fechaNacimiento,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null && pickedDate != _fechaNacimiento) {
+                        setState(() {
+                          _fechaNacimiento = pickedDate;
+                        });
+                      }
+                    },
+                    child: Text('Seleccionar Fecha'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -96,7 +123,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
     RegistroData registro = RegistroData(
       nombre: _nombreController.text,
       apellido: _apellidoController.text,
-      fechaNacimiento: DateTime.now(), // Puedes agregar un campo de fecha de nacimiento en el futuro
+      fechaNacimiento: _fechaNacimiento, // Utiliza la fecha seleccionada
       correo: _correoController.text,
       contrasena: _contrasenaController.text,
     );
@@ -105,7 +132,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
     RegistroService registroService = RegistroService();
     registroService.guardarDatosDeRegistro(registro);
 
-    // Redirige a la pantalla de inicio de sesión después de guardar los datos
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+    // Aquí podrías agregar la navegación a la siguiente pantalla o cualquier otra lógica necesaria
   }
 }
