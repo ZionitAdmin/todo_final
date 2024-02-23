@@ -19,5 +19,5 @@ ThemeData darkTheme() {
 }
 
 ThemeData lightTheme() {
-  return ThemeData(brightness: Brightness.light, colorSchemeSeed: Colors.purple);
+  return ThemeData(brightness: Brightness.light, colorSchemeSeed: Colors.blue);
 }

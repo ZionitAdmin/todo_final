@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+// Importa el RegistroScreen
 
 class LoginScreen extends StatelessWidget {
   static const String name = "login_screen";
@@ -10,10 +11,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Oculta el icono de hamburguesa del menú lateral
+        automaticallyImplyLeading: false,
         actions: const [],
         title: const Text('Inicio de Sesión'),
-       // Lista vacía para ocultar los iconos de notificaciones
       ),
       body: Center(
         child: Padding(
@@ -21,15 +21,13 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Campo para ingresar correo electrónico
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Correo Electrónico',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 20), // Separación entre los campos
-              // Campo para ingresar contraseña
+              const SizedBox(height: 20),
               TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(
@@ -37,12 +35,9 @@ class LoginScreen extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 20), // Separación entre los campos
-              // Enlace para "¿Olvidaste tu contraseña?"
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  // Aquí puedes implementar la lógica para recuperar contraseña
-                  // Por ahora, solo imprimimos un mensaje en la consola
                   print('Olvidaste tu contraseña?');
                 },
                 child: const Text(
@@ -53,14 +48,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20), // Separación entre los campos
-              // Botón para iniciar sesión
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Navegar al Home al pulsar el botón de iniciar sesión
-                  GoRouter.of(context).go('/'); // Cambia esto si deseas usar el Screen
+                  GoRouter.of(context).go('/');
                 },
                 child: const Text('Iniciar Sesión'),
+              ),
+              const SizedBox(height: 20), // Agrega un espacio entre los botones
+              ElevatedButton(
+                onPressed: () {
+                  // Navegar a la pantalla de registro al presionar el botón
+                  GoRouter.of(context).go('/registro');
+                },
+                child: const Text('Registrarse'),
               ),
             ],
           ),
