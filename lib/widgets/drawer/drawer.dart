@@ -19,7 +19,6 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
-    print("render");
 
     handleTapMenu(BuildContext context, int index, String viewName) {
       AppConstants.homeScaffoldKey.currentState?.closeDrawer();
@@ -60,16 +59,14 @@ class MyDrawer extends StatelessWidget {
                       icon: Icons.pending_actions,
                       isSelected:
                           context.watch<DrawerProvider>().isMenuActive(2),
-                      onTap: () =>    handleTapMenu(context, 2, PendantView.name),
-
-          ),
+                      onTap: () => handleTapMenu(context, 2, PendantView.name),
+                    ),
                     MyDrawerItem(
                       title: "Mis Proyectos",
                       icon: Icons.list,
                       isSelected:
                           context.watch<DrawerProvider>().isMenuActive(3),
-                      onTap: () =>  handleTapMenu(context, 3, ProjectView.name),
-
+                      onTap: () => handleTapMenu(context, 3, ProjectView.name),
                     ),
                     const Divider(indent: 10, endIndent: 10),
                     Padding(

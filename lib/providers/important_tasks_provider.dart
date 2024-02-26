@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 
 class ImportantTasksProvider extends ChangeNotifier {
-  List<Task> _importantTasks = [];
+  final List<Task> _importantTasks = [];
 
   List<Task> get importantTasks => _importantTasks;
 
