@@ -3,14 +3,23 @@ import 'package:path_provider/path_provider.dart';
 import 'package:todo_practica_final/model/prueba_model.dart';
 
 class IsarDBService {
-  Future<Isar> openDB() async {
-    final dir = await getApplicationDocumentsDirectory();
-    if (Isar.instanceNames.isEmpty) {
-      return Isar.openSync([
-        PruebaSchema // schema de prueba para modo de ejemplo, sacar una vez comenzado el desarrollo
-      ], inspector: true, directory: dir.path);
-    }
+  late Isar _isar;
 
-    return Future.value(Isar.getInstance());
+  Future<void> initIsar() async {
+    final directory = await getApplicationDocumentsDirectory();
+    _isar = await Isar.open(
+      [
+        PruebaSchema, // Agrega aquí los esquemas que necesites
+      ],
+      directory: directory.path,
+    );
+  }
+
+  Future<Isar> openDB() async {
+    if (_isar == null) {
+      await initIsar();
+    }
+    return _isar;
   }
 }
+

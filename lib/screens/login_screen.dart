@@ -8,7 +8,7 @@ import 'package:todo_practica_final/widgets/my_text_form_field.dart';
 // Importa el RegistroScreen
 
 class LoginScreen extends StatelessWidget {
-  static const String name = "login_screen";
+  static const String name = "login";
 
   const LoginScreen({Key? key}) : super(key: key);
 

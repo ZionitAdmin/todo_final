@@ -22,7 +22,7 @@ class RegistroScreenState extends State<RegistroScreen> {
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   DateTime _fechaNacimiento =
-      DateTime.now(); // Variable para almacenar la fecha de nacimiento
+  DateTime.now(); // Variable para almacenar la fecha de nacimiento
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                   },
                 ),
                 MyTextFormField(
-                  controller: _nombreController,
+                  controller: _apellidoController,
                   label: "Apellido",
                   borderStyle: myInputBorder,
                   validator: (value) {
@@ -61,7 +61,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                   },
                 ),
                 MyTextFormField(
-                  controller: _nombreController,
+                  controller: _correoController,
                   label: "Correo",
                   borderStyle: myInputBorder,
                   validator: (value) {
@@ -73,7 +73,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                   },
                 ),
                 MyTextFormField(
-                  controller: _nombreController,
+                  controller: _contrasenaController,
                   label: "Contraseña",
                   borderStyle: myInputBorder,
                   validator: (value) {
@@ -116,11 +116,13 @@ class RegistroScreenState extends State<RegistroScreen> {
                 Row(
                   children: [
                     Expanded(
-                        child: TextButton(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            child: const Text("Cancelar"))),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancelar"),
+                      ),
+                    ),
                     Expanded(
                       child: MyFilledButton(
                         label: "Guardar",
@@ -128,6 +130,8 @@ class RegistroScreenState extends State<RegistroScreen> {
                           if (_formKey.currentState!.validate()) {
                             // Si el formulario es válido, captura los datos y los guarda
                             _guardarDatosDeRegistro();
+                            // Redirige a la pantalla de inicio de sesión
+
                           }
                         },
                       ),
@@ -156,6 +160,7 @@ class RegistroScreenState extends State<RegistroScreen> {
     RegistroService registroService = RegistroService();
     registroService.guardarDatosDeRegistro(registro);
 
-    // Aquí podrías agregar la navegación a la siguiente pantalla o cualquier otra lógica necesaria
+    // Navega a la pantalla de inicio de sesión
+    GoRouter.of(context).go('/login');
   }
 }

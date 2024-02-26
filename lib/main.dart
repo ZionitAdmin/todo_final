@@ -5,8 +5,14 @@ import 'package:todo_practica_final/providers/appbar_provider.dart';
 import 'package:todo_practica_final/providers/drawer_provider.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
 import 'package:todo_practica_final/providers/theme_provider.dart';
+import 'package:todo_practica_final/services/db_isar_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Asegura que los plugins de Flutter estén inicializados
+
+  // Inicializa Isar previamente
+
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => LoginProvider()),
@@ -17,6 +23,8 @@ void main() {
     child: const MainApp(),
   ));
 }
+
+
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -29,4 +37,9 @@ class MainApp extends StatelessWidget {
       theme: context.watch<ThemeProvider>().theme,
     );
   }
+}
+// Define la función para inicializar Isar
+Future<void> initIsar() async {
+  final isarDBService = IsarDBService();
+  await isarDBService.initIsar();
 }
