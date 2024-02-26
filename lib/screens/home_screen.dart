@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_practica_final/config/constants.dart';
-import 'package:todo_practica_final/providers/appbar_provider.dart';
-import 'package:todo_practica_final/providers/drawer_provider.dart';
 // Importa la pantalla de edición
 
 import 'dart:math';
 
-import '../views/my_day_view.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_practica_final/config/constants.dart';
+import 'package:todo_practica_final/providers/appbar_provider.dart';
+
 import '../widgets/drawer/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -90,7 +88,8 @@ class HomeScreenState extends State<HomeScreen> {
                             _deleteTask(index);
                           }
                         },
-                        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
                           const PopupMenuItem<String>(
                             value: 'edit',
                             child: ListTile(
@@ -121,6 +120,7 @@ class HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   void _addRandomTask() {
     final random = Random();
     final project = 'Proyecto ${_randomString(1 + random.nextInt(3))}';
@@ -140,14 +140,13 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-
-
-
   void _showEditDialog(BuildContext context, Task task) {
-    final TextEditingController projectController = TextEditingController(text: task.project);
-    final TextEditingController titleController = TextEditingController(text: task.title);
-    final TextEditingController descriptionController = TextEditingController(text: task.description);
+    final TextEditingController projectController =
+        TextEditingController(text: task.project);
+    final TextEditingController titleController =
+        TextEditingController(text: task.title);
+    final TextEditingController descriptionController =
+        TextEditingController(text: task.description);
 
     showDialog(
       context: context,
@@ -210,7 +209,8 @@ class HomeScreenState extends State<HomeScreen> {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     final random = Random();
     return String.fromCharCodes(
-      Iterable.generate(length, (_) => chars.codeUnitAt(random.nextInt(chars.length))),
+      Iterable.generate(
+          length, (_) => chars.codeUnitAt(random.nextInt(chars.length))),
     );
   }
 }
