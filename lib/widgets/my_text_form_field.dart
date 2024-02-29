@@ -10,6 +10,7 @@ class MyTextFormField extends StatelessWidget {
   final InputBorder? borderStyle;
   final Icon? prefixIcon;
   final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged; // Nuevo parámetro onChanged
 
   const MyTextFormField({
     super.key,
@@ -20,6 +21,7 @@ class MyTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.prefixIcon,
     this.suffixIcon,
+    this.onChanged, // Añadido onChanged aquí
   });
 
   @override
@@ -30,13 +32,15 @@ class MyTextFormField extends StatelessWidget {
         obscureText: obscureText,
         controller: controller,
         decoration: InputDecoration(
-            isDense: true,
-            contentPadding: const EdgeInsets.all(AppConstants.borderRadius),
-            prefix: prefixIcon,
-            suffix: suffixIcon,
-            labelText: label,
-            border: borderStyle),
+          isDense: true,
+          contentPadding: const EdgeInsets.all(AppConstants.borderRadius),
+          prefix: prefixIcon,
+          suffix: suffixIcon,
+          labelText: label,
+          border: borderStyle,
+        ),
         validator: validator,
+        onChanged: onChanged, // Pasar onChanged al TextFormField interno
       ),
     );
   }

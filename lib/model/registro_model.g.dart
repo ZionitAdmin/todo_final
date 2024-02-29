@@ -15,7 +15,7 @@ extension GetRegistroDataCollection on Isar {
 
 const RegistroDataSchema = CollectionSchema(
   name: r'RegistroData',
-  id: 53765692349196,
+  id: 537656923,
   properties: {
     r'apellido': PropertySchema(
       id: 0,

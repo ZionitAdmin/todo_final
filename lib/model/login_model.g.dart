@@ -15,7 +15,7 @@ extension GetLoginDataCollection on Isar {
 
 const LoginDataSchema = CollectionSchema(
   name: r'LoginData',
-  id: 3646020211574150524,
+  id: 364602021157,
   properties: {
     r'email': PropertySchema(
       id: 0,

@@ -21,8 +21,7 @@ class RegistroScreenState extends State<RegistroScreen> {
   final TextEditingController _apellidoController = TextEditingController();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
-  DateTime _fechaNacimiento =
-  DateTime.now(); // Variable para almacenar la fecha de nacimiento
+  DateTime _fechaNacimiento = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,6 @@ class RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu correo';
                     }
-                    // Aquí podrías agregar validaciones adicionales para el formato del correo
                     return null;
                   },
                 ),
@@ -80,7 +78,6 @@ class RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu contraseña';
                     }
-                    // Aquí podrías agregar validaciones adicionales para la fortaleza de la contraseña
                     return null;
                   },
                 ),
@@ -89,7 +86,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Fecha de Nacimiento: ${_fechaNacimiento.day}/${_fechaNacimiento.month}/${_fechaNacimiento.year}',
+                        'Fecha de Nacimiento: ${_fechaNacimiento
+                            .day}/${_fechaNacimiento.month}/${_fechaNacimiento
+                            .year}',
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -126,12 +125,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                     Expanded(
                       child: MyFilledButton(
                         label: "Guardar",
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            // Si el formulario es válido, captura los datos y los guarda
-                            _guardarDatosDeRegistro();
-                            // Redirige a la pantalla de inicio de sesión
-
+                            await _guardarDatosDeRegistro();
                           }
                         },
                       ),
@@ -146,21 +142,26 @@ class RegistroScreenState extends State<RegistroScreen> {
     );
   }
 
-  void _guardarDatosDeRegistro() {
-    // Crea una instancia de RegistroData con los datos capturados del usuario
+  Future<void> _guardarDatosDeRegistro() async {
     RegistroData registro = RegistroData(
       nombre: _nombreController.text,
       apellido: _apellidoController.text,
-      fechaNacimiento: _fechaNacimiento, // Utiliza la fecha seleccionada
+      fechaNacimiento: _fechaNacimiento,
       correo: _correoController.text,
       contrasena: _contrasenaController.text,
     );
 
-    // Utiliza el servicio de registro para guardar los datos en la base de datos
     RegistroService registroService = RegistroService();
-    registroService.guardarDatosDeRegistro(registro);
 
-    // Navega a la pantalla de inicio de sesión
+    try {
+      await registroService.guardarDatosDeRegistro(registro);
+      print('Los datos se han guardado correctamente en la base de datos.');
+    } catch (e) {
+      print(
+          'Ha ocurrido un error al guardar los datos en la base de datos: $e');
+    }
+
     GoRouter.of(context).go('/login');
   }
+
 }

@@ -15,7 +15,7 @@ extension GetPruebaCollection on Isar {
 
 const PruebaSchema = CollectionSchema(
   name: r'Prueba',
-  id: 4616363958615221248,
+  id: 461636395861,
   properties: {
     r'dato': PropertySchema(
       id: 0,

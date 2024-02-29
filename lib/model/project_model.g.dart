@@ -15,7 +15,7 @@ extension GetProjectCollection on Isar {
 
 const ProjectSchema = CollectionSchema(
   name: r'Project',
-  id: 3302999628838485849,
+  id: 3302999628838,
   properties: {
     r'abbreviation': PropertySchema(
       id: 0,
