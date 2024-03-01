@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_practica_final/config/input_styles.dart';
+import 'package:todo_practica_final/db/interfaces/registro_repo.dart'; // Importamos la interfaz del repositorio
+import 'package:todo_practica_final/db/repository/registro_repo_impl.dart'; // Importamos la implementación del repositorio
 import 'package:todo_practica_final/widgets/my_filled_button.dart';
 import 'package:todo_practica_final/widgets/my_text_form_field.dart';
-
 import '../model/registro_model.dart';
-import '../services/registro_service.dart';
 
 class RegistroScreen extends StatefulWidget {
   static const String name = "registro_screen";
@@ -151,10 +151,10 @@ class RegistroScreenState extends State<RegistroScreen> {
       contrasena: _contrasenaController.text,
     );
 
-    RegistroService registroService = RegistroService();
+    RegistroRepo repo = RegistroRepoImpl(); // Utilizamos la implementación del repositorio
 
     try {
-      await registroService.guardarDatosDeRegistro(registro);
+      await repo.guardarDatosDeRegistro(registro); // Llamamos al método de guardar del repositorio
       print('Los datos se han guardado correctamente en la base de datos.');
     } catch (e) {
       print(
@@ -163,5 +163,4 @@ class RegistroScreenState extends State<RegistroScreen> {
 
     GoRouter.of(context).go('/login');
   }
-
 }
