@@ -5,8 +5,16 @@ import 'package:todo_practica_final/providers/appbar_provider.dart';
 import 'package:todo_practica_final/providers/drawer_provider.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
 import 'package:todo_practica_final/providers/theme_provider.dart';
+import 'package:todo_practica_final/services/db_isar_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // final registroService = RegistroService();
+
+  final isarDBService = IsarDBService();
+  await isarDBService.db;
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => LoginProvider()),
@@ -19,7 +27,7 @@ void main() {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
