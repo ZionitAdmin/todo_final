@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
-import '../services/registro_service.dart';
-
+import 'package:todo_practica_final/db/repository/registro_repo_impl.dart';
 
 class LoginProvider extends ChangeNotifier {
-  final RegistroService _registroService;
+  // final RegistroService _registroService;
+  final registroRepo = RegistroRepoImpl();
 
-  LoginProvider(this._registroService);
+  LoginProvider();
 
   String _email = '';
   String _password = '';
@@ -31,6 +31,6 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<bool> login() async {
-    return await _registroService.verificarCredenciales(_email, _password);
+    return await registroRepo.veridicarCredenciales(_email, _password);
   }
 }

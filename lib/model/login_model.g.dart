@@ -15,7 +15,7 @@ extension GetLoginDataCollection on Isar {
 
 const LoginDataSchema = CollectionSchema(
   name: r'LoginData',
-  id: 364602021157,
+  id: -3646020211574150524,
   properties: {
     r'email': PropertySchema(
       id: 0,
@@ -71,9 +71,9 @@ LoginData _loginDataDeserialize(
 ) {
   final object = LoginData(
     email: reader.readString(offsets[0]),
+    isarId: id,
     password: reader.readString(offsets[1]),
   );
-  object.isarId = id;
   return object;
 }
 
@@ -94,7 +94,7 @@ P _loginDataDeserializeProp<P>(
 }
 
 Id _loginDataGetId(LoginData object) {
-  return object.isarId;
+  return object.isarId ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _loginDataGetLinks(LoginData object) {
@@ -318,8 +318,24 @@ extension LoginDataQueryFilter
     });
   }
 
+  QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
+  QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
   QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdEqualTo(
-      Id value) {
+      Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -329,7 +345,7 @@ extension LoginDataQueryFilter
   }
 
   QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdGreaterThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -342,7 +358,7 @@ extension LoginDataQueryFilter
   }
 
   QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdLessThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -355,8 +371,8 @@ extension LoginDataQueryFilter
   }
 
   QueryBuilder<LoginData, LoginData, QAfterFilterCondition> isarIdBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

@@ -4,20 +4,20 @@ part 'project_model.g.dart';
 
 @Collection()
 class Project {
-
-  Id isarId;
+  Id? isarId;
   String name;
   String abbreviation;
   String creator;
   String assignedUser;
 
   Project({
-    required this.isarId,
+    this.isarId,
     required this.name,
     required String abbreviation,
     required this.creator,
     required this.assignedUser,
-  })  : abbreviation = abbreviation.isNotEmpty ? abbreviation : name.substring(0, 3);
+  }) : abbreviation =
+            abbreviation.isNotEmpty ? abbreviation : name.substring(0, 3);
 
   void assignUser(String user) {
     assignedUser = user;

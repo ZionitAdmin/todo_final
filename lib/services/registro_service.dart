@@ -17,6 +17,7 @@ class RegistroService {
       directory: directory.path,
     );
   }
+
   Future<void> guardarDatosDeRegistro(RegistroData registroData) async {
     await _ensureIsarInitialized();
     await _isar.writeTxn(() async {
@@ -28,11 +29,8 @@ class RegistroService {
     await _isar.registroDatas.put(registroData);
   }
 
-
-
-
   Future<bool> verificarCredenciales(String correo, String contrasena) async {
-    await _ensureIsarInitialized();
+    // await _ensureIsarInitialized();
     final registro = await _isar.registroDatas
         .where()
         .filter()
@@ -44,9 +42,5 @@ class RegistroService {
     return registro != null;
   }
 
-  Future<void> _ensureIsarInitialized() async {
-    if (_isar == null) {
-      await initIsar();
-    }
-  }
+  Future<void> _ensureIsarInitialized() async {}
 }

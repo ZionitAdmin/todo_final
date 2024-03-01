@@ -15,7 +15,7 @@ extension GetProjectCollection on Isar {
 
 const ProjectSchema = CollectionSchema(
   name: r'Project',
-  id: 3302999628838,
+  id: 3302999628838485849,
   properties: {
     r'abbreviation': PropertySchema(
       id: 0,
@@ -114,7 +114,7 @@ P _projectDeserializeProp<P>(
 }
 
 Id _projectGetId(Project object) {
-  return object.isarId;
+  return object.isarId ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _projectGetLinks(Project object) {
@@ -595,8 +595,24 @@ extension ProjectQueryFilter
     });
   }
 
+  QueryBuilder<Project, Project, QAfterFilterCondition> isarIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> isarIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
   QueryBuilder<Project, Project, QAfterFilterCondition> isarIdEqualTo(
-      Id value) {
+      Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -606,7 +622,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> isarIdGreaterThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -619,7 +635,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> isarIdLessThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -632,8 +648,8 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> isarIdBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
