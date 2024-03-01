@@ -4,13 +4,12 @@ part 'login_model.g.dart';
 
 @Collection()
 class LoginData {
-
-
-  late Id isarId;
+  Id? isarId;
   String email;
   String password;
 
   LoginData({
+    this.isarId,
     required this.email,
     required this.password,
   });

@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registroService = context.read<RegistroService>(); // Obtén el servicio de registro
+    // final registroService = context.read<RegistroService>(); // Obtén el servicio de registro
 
     return Scaffold(
       body: Center(
@@ -28,11 +28,13 @@ class LoginScreen extends StatelessWidget {
                   borderStyle: myInputBorder,
                   label: "Correo Electrónico",
                   prefixIcon: const Icon(Icons.person),
-                  onChanged: (value) => context.read<LoginProvider>().email = value,
+                  onChanged: (value) =>
+                      context.read<LoginProvider>().email = value,
                 ),
                 const SizedBox(height: 20),
                 MyTextFormField(
-                  obscureText: !context.watch<LoginProvider>().isPasswordVisible,
+                  obscureText:
+                      !context.watch<LoginProvider>().isPasswordVisible,
                   label: 'Contraseña',
                   prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
@@ -41,35 +43,34 @@ class LoginScreen extends StatelessWidget {
                           ? Icons.visibility_off_outlined
                           : Icons.remove_red_eye,
                     ),
-                    onPressed: () =>
-                        context.read<LoginProvider>().togglePasswordVisibility(),
+                    onPressed: () => context
+                        .read<LoginProvider>()
+                        .togglePasswordVisibility(),
                   ),
                   borderStyle: myInputBorder,
-                  onChanged: (value) => context.read<LoginProvider>().password = value,
+                  onChanged: (value) =>
+                      context.read<LoginProvider>().password = value,
                 ),
-
                 const SizedBox(height: 20),
                 MyFilledButton(
                   label: "Iniciar sesión",
                   labelSize: 16,
                   onPressed: () async {
                     final loginProvider = context.read<LoginProvider>();
-                    final isValid = await registroService.verificarCredenciales(
-                      loginProvider.email,
-                      loginProvider.password,
-                    );
+                    final isValid = await loginProvider.login();
 
                     if (isValid) {
-                      context.go('/'); // Si las credenciales son válidas, redirige al home
+                      context.go(
+                          '/'); // Si las credenciales son válidas, redirige al home
                     } else {
                       // Si las credenciales no son válidas, muestra un mensaje de error
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Credenciales incorrectas')),
+                        const SnackBar(
+                            content: Text('Credenciales incorrectas')),
                       );
                     }
                   },
                 ),
-
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {

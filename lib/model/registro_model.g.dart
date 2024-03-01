@@ -15,7 +15,7 @@ extension GetRegistroDataCollection on Isar {
 
 const RegistroDataSchema = CollectionSchema(
   name: r'RegistroData',
-  id: 537656923,
+  id: 5376569234919655204,
   properties: {
     r'apellido': PropertySchema(
       id: 0,
@@ -94,9 +94,9 @@ RegistroData _registroDataDeserialize(
     contrasena: reader.readString(offsets[1]),
     correo: reader.readString(offsets[2]),
     fechaNacimiento: reader.readDateTime(offsets[3]),
+    isarId: id,
     nombre: reader.readString(offsets[4]),
   );
-  object.isarId = id;
   return object;
 }
 
@@ -123,7 +123,7 @@ P _registroDataDeserializeProp<P>(
 }
 
 Id _registroDataGetId(RegistroData object) {
-  return object.isarId;
+  return object.isarId ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _registroDataGetLinks(RegistroData object) {
@@ -681,8 +681,26 @@ extension RegistroDataQueryFilter
     });
   }
 
+  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
+      isarIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
+  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
+      isarIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isarId',
+      ));
+    });
+  }
+
   QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> isarIdEqualTo(
-      Id value) {
+      Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -693,7 +711,7 @@ extension RegistroDataQueryFilter
 
   QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
       isarIdGreaterThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -707,7 +725,7 @@ extension RegistroDataQueryFilter
 
   QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
       isarIdLessThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -720,8 +738,8 @@ extension RegistroDataQueryFilter
   }
 
   QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> isarIdBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

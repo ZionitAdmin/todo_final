@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practica_final/config/router/app_router.dart';
@@ -7,19 +6,18 @@ import 'package:todo_practica_final/providers/drawer_provider.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
 import 'package:todo_practica_final/providers/theme_provider.dart';
 import 'package:todo_practica_final/services/db_isar_service.dart';
-import 'package:todo_practica_final/services/registro_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final registroService = RegistroService();
+  // final registroService = RegistroService();
 
   final isarDBService = IsarDBService();
   await isarDBService.db;
 
   runApp(MultiProvider(
     providers: [
-      Provider.value(value: registroService),
-      ChangeNotifierProvider(create: (_) => LoginProvider(registroService)),
+      ChangeNotifierProvider(create: (_) => LoginProvider()),
       ChangeNotifierProvider(create: (_) => DrawerProvider()),
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ChangeNotifierProvider(create: (_) => AppbarProvider()),
@@ -40,10 +38,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
