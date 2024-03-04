@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practica_final/config/input_styles.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
-import 'package:todo_practica_final/services/registro_service.dart'; // Importa el servicio de registro
 import 'package:todo_practica_final/widgets/my_filled_button.dart';
 import 'package:todo_practica_final/widgets/my_text_form_field.dart';
 
