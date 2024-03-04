@@ -2,6 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../model/login_model.dart';
+import '../model/my_day_model.dart';
 import '../model/project_model.dart';
 import '../model/registro_model.dart';
 
@@ -21,6 +22,7 @@ class IsarDBService {
           ProjectSchema,
           RegistroDataSchema,
           LoginDataSchema,
+          TarjetaSchema,
         ],
         directory: dir.path,
         inspector: true,

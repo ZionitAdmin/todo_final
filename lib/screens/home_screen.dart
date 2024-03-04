@@ -1,29 +1,35 @@
-// Importa la pantalla de edición
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_practica_final/config/constants.dart';
-import 'package:todo_practica_final/providers/appbar_provider.dart';
+import 'package:todo_practica_final/db/repository/my_day_repo_impl.dart';
+import 'package:todo_practica_final/model/my_day_model.dart';
+import 'package:todo_practica_final/providers/appbar_provider.dart'; // Importar AppBarProvider
+import 'package:go_router/go_router.dart';
 
+import '../config/constants.dart';
 import '../widgets/drawer/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  final Widget children;
-  const HomeScreen({Key? key, required this.children}) : super(key: key);
+  const HomeScreen({Key? key, required StatefulNavigationShell children}) : super(key: key);
 
   @override
-  HomeScreenState createState() => HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
-  late List<Task> tasks;
+class _HomeScreenState extends State<HomeScreen> {
+  List<Tarjeta>? tasks;
 
   @override
   void initState() {
     super.initState();
-    tasks = []; // Inicializar la lista de tareas vacía
+    _loadTasks();
+  }
+
+  void _loadTasks() async {
+    final repo = MiDiaRepoImpl();
+    tasks = await repo.obtenerTarjetas();
+    setState(() {});
   }
 
   @override
@@ -31,27 +37,19 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: AppConstants.homeScaffoldKey,
       appBar: AppBar(
-        centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.watch<AppbarProvider>().title),
-            const Text(
-              "Lunes, 29 de enero",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-            ),
-          ],
+        title: Consumer<AppbarProvider>(
+          builder: (context, appbarProvider, child) {
+            return Text(appbarProvider.title);
+          },
         ),
-        toolbarHeight: 100,
-        actions: const [
-          Padding(padding: EdgeInsets.all(16), child: Icon(Icons.notifications))
-        ],
       ),
       drawer: const MyDrawer(),
-      body: ListView.builder(
-        itemCount: tasks.length,
+      body: tasks == null
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+        itemCount: tasks!.length,
         itemBuilder: (context, index) {
-          final task = tasks[index];
+          final task = tasks![index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -66,11 +64,13 @@ class HomeScreenState extends State<HomeScreen> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Proyecto: ${task.project}'),
+                      Text('Título: ${task.titulo}'),
                       const SizedBox(height: 8),
-                      Text('Tarea: ${task.title}'),
+                      Text('Descripción: ${task.descripcion}'),
                       const SizedBox(height: 8),
-                      Text('Descripción: ${task.description}'),
+                      Text('Fecha límite: ${task.fechaLimite.toString()}'),
+                      const SizedBox(height: 8),
+                      Text('Fecha realización: ${task.fechaRealizacion.toString()}'),
                     ],
                   ),
                   trailing: Row(
@@ -89,7 +89,7 @@ class HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         itemBuilder: (BuildContext context) =>
-                            <PopupMenuEntry<String>>[
+                        <PopupMenuEntry<String>>[
                           const PopupMenuItem<String>(
                             value: 'edit',
                             child: ListTile(
@@ -121,32 +121,31 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _addRandomTask() {
+  void _addRandomTask() async {
     final random = Random();
     final project = 'Proyecto ${_randomString(1 + random.nextInt(3))}';
     final title = 'Tarea ${_randomString(5)}';
     final description = 'Descripción de la tarea ${_randomString(10)}';
-    final task = Task(
-      project: project,
-      hour: '00:00', // Hora por defecto
-      title: title,
-      description: description,
-      important: false,
-      completed: false,
-      steps: [],
+    final task = Tarjeta(
+      titulo: title,
+      descripcion: description,
+      fechaLimite: DateTime.now().add(const Duration(days: 1)),
+      fechaRealizacion: DateTime.now(),
+      integrantes: ['Usuario1'],
+      proyectos: ['Proyecto1'],
     );
+    final repo = MiDiaRepoImpl();
+    await repo.guardarDatosDeMiDia(task);
     setState(() {
-      tasks.add(task);
+      tasks!.add(task);
     });
   }
 
-  void _showEditDialog(BuildContext context, Task task) {
-    final TextEditingController projectController =
-        TextEditingController(text: task.project);
+  void _showEditDialog(BuildContext context, Tarjeta task) {
     final TextEditingController titleController =
-        TextEditingController(text: task.title);
+    TextEditingController(text: task.titulo);
     final TextEditingController descriptionController =
-        TextEditingController(text: task.description);
+    TextEditingController(text: task.descripcion);
 
     showDialog(
       context: context,
@@ -156,10 +155,6 @@ class HomeScreenState extends State<HomeScreen> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                controller: projectController,
-                decoration: const InputDecoration(labelText: 'Proyecto'),
-              ),
               TextField(
                 controller: titleController,
                 decoration: const InputDecoration(labelText: 'Título'),
@@ -179,10 +174,9 @@ class HomeScreenState extends State<HomeScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Guarda los cambios
-                task.project = projectController.text;
-                task.title = titleController.text;
-                task.description = descriptionController.text;
+                task.titulo = titleController.text;
+                task.descripcion = descriptionController.text;
+                _updateTask(task);
                 setState(() {});
                 Navigator.of(context).pop();
               },
@@ -194,14 +188,19 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _addToImportantView(Task task) {
+  void _updateTask(Tarjeta task) async {
+    final repo = MiDiaRepoImpl();
+    await repo.actualizarTarjeta(task);
+  }
+
+  void _addToImportantView(Tarjeta task) {
     // Añade la tarea a la vista importante
     // Implementa tu lógica aquí para añadir la tarea a la vista importante
   }
 
   void _deleteTask(int index) {
     setState(() {
-      tasks.removeAt(index);
+      tasks!.removeAt(index);
     });
   }
 
@@ -220,17 +219,19 @@ class Task {
   final String hour;
   late String title;
   late String description;
-  final bool important;
-  final bool completed;
-  final List<String> steps;
+  final DateTime fechaLimite;
+  final DateTime fechaRealizacion;
+  final List<String> integrantes;
+  final List<String> proyectos;
 
   Task({
     required this.project,
     required this.hour,
     required this.title,
     required this.description,
-    required this.important,
-    required this.completed,
-    required this.steps,
+    required this.fechaLimite,
+    required this.fechaRealizacion,
+    required this.integrantes,
+    required this.proyectos,
   });
 }
