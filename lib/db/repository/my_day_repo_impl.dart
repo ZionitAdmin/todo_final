@@ -20,14 +20,14 @@ class MiDiaRepoImpl implements MiDiaRepo {
   Future<void> guardarDatosDeMiDia(Tarjeta data) async {
     final isar = await db;
     await isar.writeTxn(() async {
-      await isar.tarjeta.put(data);
+      await isar.tarjetas.put(data);
     });
   }
   @override
   Future<List<Tarjeta>> obtenerTarjetas() async {
     final isar = await db;
     // Obtener un IsarQuery directamente desde la colección
-    final query = isar.tarjeta.where().findAll();
+    final query = isar.tarjetas.where().findAll();
     // Ejecutar la consulta y obtener la lista de tarjetas
     return query;
   }
@@ -38,7 +38,7 @@ class MiDiaRepoImpl implements MiDiaRepo {
   Future<void> actualizarTarjeta(Tarjeta data) async {
     final isar = await db;
     await isar.writeTxn(() async {
-      await isar.tarjeta.put(data);
+      await isar.tarjetas.put(data);
     });
   }
 }

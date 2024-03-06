@@ -7,7 +7,7 @@ class Tarjeta {
   Id? isarId;
   late final String titulo;
   late final String descripcion;
-  final DateTime fechaLimite;
+  late final DateTime fechaLimite;
   final DateTime fechaRealizacion;
   final List<String> integrantes;
   final List<String> proyectos;

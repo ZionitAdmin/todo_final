@@ -1,17 +1,19 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practica_final/db/repository/my_day_repo_impl.dart';
 import 'package:todo_practica_final/model/my_day_model.dart';
-import 'package:todo_practica_final/providers/appbar_provider.dart'; // Importar AppBarProvider
+import 'package:todo_practica_final/providers/appbar_provider.dart';
 import 'package:go_router/go_router.dart';
-
 import '../config/constants.dart';
 import '../widgets/drawer/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required StatefulNavigationShell children}) : super(key: key);
+  const HomeScreen({Key? key, required this.children}) : super(key: key);
+
+  final StatefulNavigationShell children;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -19,11 +21,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Tarjeta>? tasks;
+  bool _showFloatingButton = true;
+  Timer? _timer;
+  late Map<int, String> _timeRemaining;
 
   @override
   void initState() {
     super.initState();
     _loadTasks();
+    _timeRemaining = {};
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   void _loadTasks() async {
@@ -50,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: tasks!.length,
         itemBuilder: (context, index) {
           final task = tasks![index];
+          final timeRemaining = _getTimeRemaining(index, task.fechaLimite);
+
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -60,64 +74,49 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12.0),
-                child: ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Título: ${task.titulo}'),
-                      const SizedBox(height: 8),
-                      Text('Descripción: ${task.descripcion}'),
-                      const SizedBox(height: 8),
-                      Text('Fecha límite: ${task.fechaLimite.toString()}'),
-                      const SizedBox(height: 8),
-                      Text('Fecha realización: ${task.fechaRealizacion.toString()}'),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.star_border),
-                        onPressed: () => _addToImportantView(task),
-                      ),
-                      PopupMenuButton<String>(
-                        onSelected: (value) {
-                          if (value == 'edit') {
-                            _showEditDialog(context, task);
-                          } else if (value == 'delete') {
-                            _deleteTask(index);
-                          }
-                        },
-                        itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
-                            value: 'edit',
-                            child: ListTile(
-                              leading: Icon(Icons.edit),
-                              title: Text('Editar'),
-                            ),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'delete',
-                            child: ListTile(
-                              leading: Icon(Icons.delete),
-                              title: Text('Eliminar'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Título: ${task.titulo}'),
+                    const SizedBox(height: 8),
+                    Text('Descripción: ${task.descripcion}'),
+                    const SizedBox(height: 8),
+                    Text('Fecha límite: ${task.fechaLimite.toString()}'),
+                    const SizedBox(height: 8),
+                    Text('Fecha realización: ${task.fechaRealizacion.toString()}'),
+                    const SizedBox(height: 8),
+                    Text('Tiempo restante: ${_timeRemaining[index] ?? timeRemaining}'),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () => _showEditDialog(context, task),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _deleteTask(index),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.play_arrow),
+                          onPressed: () => _toggleTimer(index, task.fechaLimite),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _showFloatingButton
+          ? FloatingActionButton(
         onPressed: _addRandomTask,
         child: const Icon(Icons.add),
-      ),
+      )
+          : null,
     );
   }
 
@@ -141,11 +140,45 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  String _randomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return String.fromCharCodes(
+      Iterable.generate(
+          length, (_) => chars.codeUnitAt(random.nextInt(chars.length))),
+    );
+  }
+
+  String _getTimeRemaining(int index, DateTime deadline) {
+    final now = DateTime.now();
+    final difference = deadline.difference(now);
+    final days = difference.inDays;
+    final hours = difference.inHours % 24;
+    final minutes = difference.inMinutes % 60;
+    final seconds = difference.inSeconds % 60;
+    final timeRemaining = '$days días $hours horas $minutes minutos $seconds segundos';
+    _timeRemaining[index] = timeRemaining;
+    return timeRemaining;
+  }
+
+  void _toggleTimer(int index, DateTime deadline) {
+    if (_timer != null && _timer!.isActive) {
+      _timer!.cancel();
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        final timeRemaining = _getTimeRemaining(index, deadline);
+        if (timeRemaining == '0 días 0 horas 0 minutos 0 segundos') {
+          timer.cancel();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('¡Tiempo agotado!')));
+        }
+        setState(() {});
+      });
+    }
+  }
+
   void _showEditDialog(BuildContext context, Tarjeta task) {
-    final TextEditingController titleController =
-    TextEditingController(text: task.titulo);
-    final TextEditingController descriptionController =
-    TextEditingController(text: task.descripcion);
+    final TextEditingController titleController = TextEditingController(text: task.titulo);
+    final TextEditingController descriptionController = TextEditingController(text: task.descripcion);
 
     showDialog(
       context: context,
@@ -193,26 +226,13 @@ class _HomeScreenState extends State<HomeScreen> {
     await repo.actualizarTarjeta(task);
   }
 
-  void _addToImportantView(Tarjeta task) {
-    // Añade la tarea a la vista importante
-    // Implementa tu lógica aquí para añadir la tarea a la vista importante
-  }
-
   void _deleteTask(int index) {
     setState(() {
       tasks!.removeAt(index);
     });
   }
-
-  String _randomString(int length) {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    final random = Random();
-    return String.fromCharCodes(
-      Iterable.generate(
-          length, (_) => chars.codeUnitAt(random.nextInt(chars.length))),
-    );
-  }
 }
+
 
 class Task {
   late String project;
