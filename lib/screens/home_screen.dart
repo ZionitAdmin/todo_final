@@ -24,17 +24,31 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _showFloatingButton = true;
   Timer? _timer;
   late Map<int, String> _timeRemaining;
+  late Map<int, bool> _timerIsActive;
+  late TextEditingController _projectController;
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _deadlineController;
 
   @override
   void initState() {
     super.initState();
     _loadTasks();
     _timeRemaining = {};
+    _timerIsActive = {};
+    _projectController = TextEditingController();
+    _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _deadlineController = TextEditingController();
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    _projectController.dispose();
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _deadlineController.dispose();
     super.dispose();
   }
 
@@ -71,41 +85,75 @@ class _HomeScreenState extends State<HomeScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Título: ${task.titulo}'),
-                    const SizedBox(height: 8),
-                    Text('Descripción: ${task.descripcion}'),
-                    const SizedBox(height: 8),
-                    Text('Fecha límite: ${task.fechaLimite.toString()}'),
-                    const SizedBox(height: 8),
-                    Text('Fecha realización: ${task.fechaRealizacion.toString()}'),
-                    const SizedBox(height: 8),
-                    Text('Tiempo restante: ${_timeRemaining[index] ?? timeRemaining}'),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () => _showEditDialog(context, task),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Proyecto: ${task.proyectos.join(", ")}'),
+                            const SizedBox(height: 8),
+                            Text('Título: ${task.titulo}'),
+                            const SizedBox(height: 8),
+                            Text('Descripción: ${task.descripcion}'),
+                            const SizedBox(height: 8),
+                            Text('Fecha límite: ${task.fechaLimite.toString()}'),
+                            const SizedBox(height: 8),
+                            Text('Fecha realización: ${task.fechaRealizacion.toString()}'),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () => _deleteTask(index),
+                      ),
+                      Positioned(
+                        bottom: 8, // Mover el contenedor hacia abajo
+                        right: 8,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.8), // Color de fondo del contenedor
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(_timerIsActive[index] ?? false ? Icons.pause : Icons.play_arrow),
+                                onPressed: () => _toggleTimer(index, task.fechaLimite),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(_timeRemaining[index] ?? timeRemaining), // Cronómetro
+                            ],
+                          ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.play_arrow),
-                          onPressed: () => _toggleTimer(index, task.fechaLimite),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: PopupMenuButton(
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: Text("Editar"),
+                          value: "edit",
+                        ),
+                        PopupMenuItem(
+                          child: Text("Eliminar"),
+                          value: "delete",
                         ),
                       ],
+                      onSelected: (value) {
+                        if (value == "edit") {
+                          _editTask(context, index);
+                        } else if (value == "delete") {
+                          _deleteTask(index);
+                        }
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );
@@ -120,6 +168,68 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _editTask(BuildContext context, int index) {
+    final task = tasks![index];
+    _projectController.text = task.proyectos.isNotEmpty ? task.proyectos.first : 'Proyecto ${_randomString(1)}';
+    _titleController.text = task.titulo;
+    _descriptionController.text = task.descripcion;
+    _deadlineController.text = task.fechaLimite.toString();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Editar Tarea"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _projectController,
+                decoration: InputDecoration(labelText: 'Proyecto'),
+              ),
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(labelText: 'Título'),
+              ),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Descripción'),
+              ),
+              TextField(
+                controller: _deadlineController,
+                decoration: InputDecoration(labelText: 'Fecha límite (YYYY-MM-DD)'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  tasks![index].proyectos = [_projectController.text];
+                  tasks![index].titulo = _titleController.text;
+                  tasks![index].descripcion = _descriptionController.text;
+                  tasks![index].fechaLimite = DateTime.parse(_deadlineController.text);
+                });
+
+                final repo = MiDiaRepoImpl();
+                await repo.guardarDatosDeMiDia(task);
+
+                Navigator.of(context).pop();
+              },
+              child: Text('Guardar Cambios'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _addRandomTask() async {
     final random = Random();
     final project = 'Proyecto ${_randomString(1 + random.nextInt(3))}';
@@ -131,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
       fechaLimite: DateTime.now().add(const Duration(days: 1)),
       fechaRealizacion: DateTime.now(),
       integrantes: ['Usuario1'],
-      proyectos: ['Proyecto1'],
+      proyectos: [project],
     );
     final repo = MiDiaRepoImpl();
     await repo.guardarDatosDeMiDia(task);
@@ -164,66 +274,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void _toggleTimer(int index, DateTime deadline) {
     if (_timer != null && _timer!.isActive) {
       _timer!.cancel();
-    } else {
-      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-        final timeRemaining = _getTimeRemaining(index, deadline);
-        if (timeRemaining == '0 días 0 horas 0 minutos 0 segundos') {
-          timer.cancel();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('¡Tiempo agotado!')));
-        }
-        setState(() {});
-      });
     }
-  }
 
-  void _showEditDialog(BuildContext context, Tarjeta task) {
-    final TextEditingController titleController = TextEditingController(text: task.titulo);
-    final TextEditingController descriptionController = TextEditingController(text: task.descripcion);
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Editar Tarea'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(labelText: 'Título'),
-              ),
-              TextField(
-                controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Descripción'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                task.titulo = titleController.text;
-                task.descripcion = descriptionController.text;
-                _updateTask(task);
-                setState(() {});
-                Navigator.of(context).pop();
-              },
-              child: const Text('Guardar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _updateTask(Tarjeta task) async {
-    final repo = MiDiaRepoImpl();
-    await repo.actualizarTarjeta(task);
+    setState(() {
+      if (_timerIsActive.containsKey(index) && _timerIsActive[index] == true) {
+        _timerIsActive[index] = false;
+      } else {
+        _timerIsActive[index] = true;
+        _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+          final timeRemaining = _getTimeRemaining(index, deadline);
+          if (timeRemaining == '0 días 0 horas 0 minutos 0 segundos') {
+            timer.cancel();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('¡Tiempo agotado!')));
+          }
+          setState(() {});
+        });
+      }
+    });
   }
 
   void _deleteTask(int index) {
@@ -232,6 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 }
+
 
 
 class Task {

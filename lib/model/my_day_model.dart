@@ -10,7 +10,7 @@ class Tarjeta {
   late final DateTime fechaLimite;
   final DateTime fechaRealizacion;
   final List<String> integrantes;
-  final List<String> proyectos;
+  late final List<String> proyectos;
 
   Tarjeta({
     this.isarId,
