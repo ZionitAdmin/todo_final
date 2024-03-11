@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:todo_practica_final/config/functions/mail_validator.dart';
 import 'package:todo_practica_final/config/input_styles.dart';
 import 'package:todo_practica_final/db/interfaces/registro_repo.dart'; // Importamos la interfaz del repositorio
 import 'package:todo_practica_final/db/repository/registro_repo_impl.dart'; // Importamos la implementación del repositorio
@@ -45,6 +47,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu nombre';
                     }
+                    if (value.length <= 2) {
+                      return 'Debe contener al menos 3 caracteres';
+                    }
                     return null;
                   },
                 ),
@@ -55,6 +60,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu apellido';
+                    }
+                    if (value.length <= 2) {
+                      return 'Debe contener al menos 3 caracteres';
                     }
                     return null;
                   },
@@ -67,6 +75,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu correo';
                     }
+                    if (!validarCorreo(value)) {
+                      return 'Debe ingresar un correo valido';
+                    }
                     return null;
                   },
                 ),
@@ -78,6 +89,9 @@ class RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu contraseña';
                     }
+                    if (value.length <= 3) {
+                      return 'Debe contener al menos 4 caracteres';
+                    }
                     return null;
                   },
                 ),
@@ -86,9 +100,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Fecha de Nacimiento: ${_fechaNacimiento
-                            .day}/${_fechaNacimiento.month}/${_fechaNacimiento
-                            .year}',
+                        'Fecha de Nacimiento: ${DateFormat("dd-MM-yyyy").format(_fechaNacimiento).toString()}',
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -100,8 +112,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                           firstDate: DateTime(1900),
                           lastDate: DateTime.now(),
                         );
-                        if (pickedDate != null &&
-                            pickedDate != _fechaNacimiento) {
+                        if (pickedDate != null) {
                           setState(() {
                             _fechaNacimiento = pickedDate;
                           });
@@ -117,7 +128,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.go('/login');
                         },
                         child: const Text("Cancelar"),
                       ),
@@ -143,6 +154,14 @@ class RegistroScreenState extends State<RegistroScreen> {
   }
 
   Future<void> _guardarDatosDeRegistro() async {
+    final edadActual = DateTime.now().difference(_fechaNacimiento).inDays / 365;
+
+    if (edadActual < 18) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Debe tener mas de 18 años para registrarse")));
+      return;
+    }
+
     RegistroData registro = RegistroData(
       nombre: _nombreController.text,
       apellido: _apellidoController.text,
@@ -151,16 +170,16 @@ class RegistroScreenState extends State<RegistroScreen> {
       contrasena: _contrasenaController.text,
     );
 
-    RegistroRepo repo = RegistroRepoImpl(); // Utilizamos la implementación del repositorio
+    RegistroRepo repo = RegistroRepoImpl();
 
     try {
-      await repo.guardarDatosDeRegistro(registro); // Llamamos al método de guardar del repositorio
+      await repo.guardarDatosDeRegistro(registro);
       print('Los datos se han guardado correctamente en la base de datos.');
     } catch (e) {
       print(
           'Ha ocurrido un error al guardar los datos en la base de datos: $e');
     }
 
-    GoRouter.of(context).go('/login');
+    context.go('/login');
   }
 }
