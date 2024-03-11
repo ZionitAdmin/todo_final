@@ -117,7 +117,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          GoRouter.of(context).go('/login'); // Redirigir al login
                         },
                         child: const Text("Cancelar"),
                       ),
