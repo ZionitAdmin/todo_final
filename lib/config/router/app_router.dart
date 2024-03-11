@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_practica_final/providers/registro_provider.dart';
 import 'package:todo_practica_final/screens/home_screen.dart';
 import 'package:todo_practica_final/screens/login_screen.dart';
 import 'package:todo_practica_final/views/important_view.dart';
@@ -7,7 +9,6 @@ import 'package:todo_practica_final/views/pendant_view.dart';
 
 import '../../screens/registro_screen.dart';
 import '../../views/project_view.dart';
-
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login', // Establece la ruta inicial como '/login'
@@ -18,11 +19,15 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
-      path: '/registro', name: RegistroScreen.name,// Ruta para el registro
-      builder: (context, state) => const RegistroScreen(), // Builder del RegistroScreen
+      path: '/registro', name: RegistroScreen.name, // Ruta para el registro
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (_) => RegisterProvider(),
+        child: const RegistroScreen(),
+      ), // Builder del RegistroScreen
     ),
     StatefulShellRoute.indexedStack(
-      builder: (_, __, navigationShell) => HomeScreen(children: navigationShell),
+      builder: (_, __, navigationShell) =>
+          HomeScreen(children: navigationShell),
       branches: <StatefulShellBranch>[
         StatefulShellBranch(routes: [
           GoRoute(

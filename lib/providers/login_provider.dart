@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:todo_practica_final/db/repository/registro_repo_impl.dart';
+import 'package:todo_practica_final/services/password_service.dart';
 
 class LoginProvider extends ChangeNotifier {
   // final RegistroService _registroService;
@@ -31,6 +32,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<bool> login() async {
-    return await registroRepo.veridicarCredenciales(_email, _password);
+    final hashedPassword = PasswordService().encryptPassword(_password);
+    return await registroRepo.veridicarCredenciales(_email, hashedPassword);
   }
 }
