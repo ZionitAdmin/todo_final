@@ -14,7 +14,11 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.1.2
   provider: ^6.1.1
-  intl: ^0.17.0
+  intl: ^0.19.0
+  crypto: ^3.0.3
+  shared_preferences: ^2.2.2
+  dart_jsonwebtoken: ^2.13.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:

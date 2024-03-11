@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_practica_final/config/functions/mail_validator.dart';
 import 'package:todo_practica_final/config/input_styles.dart';
-import 'package:todo_practica_final/db/interfaces/registro_repo.dart'; // Importamos la interfaz del repositorio
-import 'package:todo_practica_final/db/repository/registro_repo_impl.dart'; // Importamos la implementación del repositorio
+import 'package:todo_practica_final/providers/registro_provider.dart';
 import 'package:todo_practica_final/widgets/my_filled_button.dart';
 import 'package:todo_practica_final/widgets/my_text_form_field.dart';
-import '../model/registro_model.dart';
 
 class RegistroScreen extends StatefulWidget {
   static const String name = "registro_screen";
@@ -17,14 +18,24 @@ class RegistroScreen extends StatefulWidget {
 
 class RegistroScreenState extends State<RegistroScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nombreController = TextEditingController();
-  final TextEditingController _apellidoController = TextEditingController();
-  final TextEditingController _correoController = TextEditingController();
-  final TextEditingController _contrasenaController = TextEditingController();
-  DateTime _fechaNacimiento = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    final registerState = context.watch<RegisterProvider>();
+
+    Future<void> guardarDatosDeRegistro() async {
+      try {
+        await registerState.handleSubmit().then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Registrado exitosamente")));
+          context.go('/login');
+        }).onError((error, stackTrace) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(error.toString())));
+        });
+      } catch (_) {}
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registro'),
@@ -38,45 +49,57 @@ class RegistroScreenState extends State<RegistroScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyTextFormField(
-                  controller: _nombreController,
+                  controller: registerState.nombreController,
                   label: "Nombre",
                   borderStyle: myInputBorder,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu nombre';
                     }
+                    if (value.length <= 2) {
+                      return 'Debe contener al menos 3 caracteres';
+                    }
                     return null;
                   },
                 ),
                 MyTextFormField(
-                  controller: _apellidoController,
+                  controller: registerState.apellidoController,
                   label: "Apellido",
                   borderStyle: myInputBorder,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu apellido';
                     }
+                    if (value.length <= 2) {
+                      return 'Debe contener al menos 3 caracteres';
+                    }
                     return null;
                   },
                 ),
                 MyTextFormField(
-                  controller: _correoController,
+                  controller: registerState.correoController,
                   label: "Correo",
                   borderStyle: myInputBorder,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu correo';
                     }
+                    if (!validarCorreo(value)) {
+                      return 'Debe ingresar un correo valido';
+                    }
                     return null;
                   },
                 ),
                 MyTextFormField(
-                  controller: _contrasenaController,
+                  controller: registerState.contrasenaController,
                   label: "Contraseña",
                   borderStyle: myInputBorder,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingresa tu contraseña';
+                    }
+                    if (value.length <= 3) {
+                      return 'Debe contener al menos 4 caracteres';
                     }
                     return null;
                   },
@@ -86,9 +109,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Fecha de Nacimiento: ${_fechaNacimiento
-                            .day}/${_fechaNacimiento.month}/${_fechaNacimiento
-                            .year}',
+                        'Fecha de Nacimiento: ${DateFormat("dd-MM-yyyy").format(registerState.fechaNacimiento).toString()}',
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -96,15 +117,12 @@ class RegistroScreenState extends State<RegistroScreen> {
                       onPressed: () async {
                         final DateTime? pickedDate = await showDatePicker(
                           context: context,
-                          initialDate: _fechaNacimiento,
+                          initialDate: registerState.fechaNacimiento,
                           firstDate: DateTime(1900),
                           lastDate: DateTime.now(),
                         );
-                        if (pickedDate != null &&
-                            pickedDate != _fechaNacimiento) {
-                          setState(() {
-                            _fechaNacimiento = pickedDate;
-                          });
+                        if (pickedDate != null) {
+                          registerState.changeBirthDate(pickedDate);
                         }
                       },
                       child: const Text('Seleccionar Fecha'),
@@ -117,7 +135,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                          GoRouter.of(context).go('/login'); // Redirigir al login
+                          context.go('/login');
                         },
                         child: const Text("Cancelar"),
                       ),
@@ -127,7 +145,7 @@ class RegistroScreenState extends State<RegistroScreen> {
                         label: "Guardar",
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            await _guardarDatosDeRegistro();
+                            await guardarDatosDeRegistro();
                           }
                         },
                       ),
@@ -140,27 +158,5 @@ class RegistroScreenState extends State<RegistroScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _guardarDatosDeRegistro() async {
-    RegistroData registro = RegistroData(
-      nombre: _nombreController.text,
-      apellido: _apellidoController.text,
-      fechaNacimiento: _fechaNacimiento,
-      correo: _correoController.text,
-      contrasena: _contrasenaController.text,
-    );
-
-    RegistroRepo repo = RegistroRepoImpl(); // Utilizamos la implementación del repositorio
-
-    try {
-      await repo.guardarDatosDeRegistro(registro); // Llamamos al método de guardar del repositorio
-      print('Los datos se han guardado correctamente en la base de datos.');
-    } catch (e) {
-      print(
-          'Ha ocurrido un error al guardar los datos en la base de datos: $e');
-    }
-
-    GoRouter.of(context).go('/login');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_practica_final/config/environment.dart';
 import 'package:todo_practica_final/config/router/app_router.dart';
 import 'package:todo_practica_final/providers/appbar_provider.dart';
 import 'package:todo_practica_final/providers/drawer_provider.dart';
@@ -14,6 +15,8 @@ void main() async {
 
   final isarDBService = IsarDBService();
   await isarDBService.db;
+
+  await Environment.initEnvironment();
 
   runApp(MultiProvider(
     providers: [
