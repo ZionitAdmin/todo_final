@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'registro_model.dart';
+part of 'user_model.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'registro_model.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetRegistroDataCollection on Isar {
-  IsarCollection<RegistroData> get registroDatas => this.collection();
+extension GetUserCollection on Isar {
+  IsarCollection<User> get users => this.collection();
 }
 
-const RegistroDataSchema = CollectionSchema(
-  name: r'RegistroData',
-  id: 5376569234919655204,
+const UserSchema = CollectionSchema(
+  name: r'User',
+  id: -7838171048429979076,
   properties: {
     r'apellido': PropertySchema(
       id: 0,
@@ -43,22 +43,22 @@ const RegistroDataSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _registroDataEstimateSize,
-  serialize: _registroDataSerialize,
-  deserialize: _registroDataDeserialize,
-  deserializeProp: _registroDataDeserializeProp,
+  estimateSize: _userEstimateSize,
+  serialize: _userSerialize,
+  deserialize: _userDeserialize,
+  deserializeProp: _userDeserializeProp,
   idName: r'isarId',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _registroDataGetId,
-  getLinks: _registroDataGetLinks,
-  attach: _registroDataAttach,
+  getId: _userGetId,
+  getLinks: _userGetLinks,
+  attach: _userAttach,
   version: '3.1.0+1',
 );
 
-int _registroDataEstimateSize(
-  RegistroData object,
+int _userEstimateSize(
+  User object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -70,8 +70,8 @@ int _registroDataEstimateSize(
   return bytesCount;
 }
 
-void _registroDataSerialize(
-  RegistroData object,
+void _userSerialize(
+  User object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -83,13 +83,13 @@ void _registroDataSerialize(
   writer.writeString(offsets[4], object.nombre);
 }
 
-RegistroData _registroDataDeserialize(
+User _userDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = RegistroData(
+  final object = User(
     apellido: reader.readString(offsets[0]),
     contrasena: reader.readString(offsets[1]),
     correo: reader.readString(offsets[2]),
@@ -100,7 +100,7 @@ RegistroData _registroDataDeserialize(
   return object;
 }
 
-P _registroDataDeserializeProp<P>(
+P _userDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -122,32 +122,28 @@ P _registroDataDeserializeProp<P>(
   }
 }
 
-Id _registroDataGetId(RegistroData object) {
+Id _userGetId(User object) {
   return object.isarId ?? Isar.autoIncrement;
 }
 
-List<IsarLinkBase<dynamic>> _registroDataGetLinks(RegistroData object) {
+List<IsarLinkBase<dynamic>> _userGetLinks(User object) {
   return [];
 }
 
-void _registroDataAttach(
-    IsarCollection<dynamic> col, Id id, RegistroData object) {
+void _userAttach(IsarCollection<dynamic> col, Id id, User object) {
   object.isarId = id;
 }
 
-extension RegistroDataQueryWhereSort
-    on QueryBuilder<RegistroData, RegistroData, QWhere> {
-  QueryBuilder<RegistroData, RegistroData, QAfterWhere> anyIsarId() {
+extension UserQueryWhereSort on QueryBuilder<User, User, QWhere> {
+  QueryBuilder<User, User, QAfterWhere> anyIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension RegistroDataQueryWhere
-    on QueryBuilder<RegistroData, RegistroData, QWhereClause> {
-  QueryBuilder<RegistroData, RegistroData, QAfterWhereClause> isarIdEqualTo(
-      Id isarId) {
+extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
+  QueryBuilder<User, User, QAfterWhereClause> isarIdEqualTo(Id isarId) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: isarId,
@@ -156,8 +152,7 @@ extension RegistroDataQueryWhere
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterWhereClause> isarIdNotEqualTo(
-      Id isarId) {
+  QueryBuilder<User, User, QAfterWhereClause> isarIdNotEqualTo(Id isarId) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -179,8 +174,7 @@ extension RegistroDataQueryWhere
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterWhereClause> isarIdGreaterThan(
-      Id isarId,
+  QueryBuilder<User, User, QAfterWhereClause> isarIdGreaterThan(Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -189,8 +183,7 @@ extension RegistroDataQueryWhere
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterWhereClause> isarIdLessThan(
-      Id isarId,
+  QueryBuilder<User, User, QAfterWhereClause> isarIdLessThan(Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -199,7 +192,7 @@ extension RegistroDataQueryWhere
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterWhereClause> isarIdBetween(
+  QueryBuilder<User, User, QAfterWhereClause> isarIdBetween(
     Id lowerIsarId,
     Id upperIsarId, {
     bool includeLower = true,
@@ -216,10 +209,8 @@ extension RegistroDataQueryWhere
   }
 }
 
-extension RegistroDataQueryFilter
-    on QueryBuilder<RegistroData, RegistroData, QFilterCondition> {
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoEqualTo(
+extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -232,8 +223,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -248,8 +238,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -264,8 +253,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -284,8 +272,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoStartsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -298,8 +285,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoEndsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -312,8 +298,8 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoContains(String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'apellido',
@@ -323,278 +309,266 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'apellido',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apellido',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      apellidoIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'apellido',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'contrasena',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'contrasena',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'contrasena',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'contrasena',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      contrasenaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'contrasena',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> correoEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> correoBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'correo',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'correo',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> correoMatches(
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoMatches(
       String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'apellido',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'apellido',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> apellidoIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'apellido',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'contrasena',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'contrasena',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'contrasena',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'contrasena',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> contrasenaIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'contrasena',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'correo',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoContains(String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'correo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> correoMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -605,8 +579,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoIsEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> correoIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'correo',
@@ -615,8 +588,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      correoIsNotEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> correoIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'correo',
@@ -625,8 +597,8 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      fechaNacimientoEqualTo(DateTime value) {
+  QueryBuilder<User, User, QAfterFilterCondition> fechaNacimientoEqualTo(
+      DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'fechaNacimiento',
@@ -635,8 +607,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      fechaNacimientoGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> fechaNacimientoGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -649,8 +620,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      fechaNacimientoLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> fechaNacimientoLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -663,8 +633,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      fechaNacimientoBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> fechaNacimientoBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -681,8 +650,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      isarIdIsNull() {
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'isarId',
@@ -690,8 +658,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      isarIdIsNotNull() {
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'isarId',
@@ -699,8 +666,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> isarIdEqualTo(
-      Id? value) {
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -709,8 +675,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      isarIdGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdGreaterThan(
     Id? value, {
     bool include = false,
   }) {
@@ -723,8 +688,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      isarIdLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdLessThan(
     Id? value, {
     bool include = false,
   }) {
@@ -737,7 +701,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> isarIdBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> isarIdBetween(
     Id? lower,
     Id? upper, {
     bool includeLower = true,
@@ -754,7 +718,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> nombreEqualTo(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -767,8 +731,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -783,8 +746,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -799,7 +761,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> nombreBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -818,8 +780,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreStartsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -832,8 +793,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreEndsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> nombreEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -846,8 +806,8 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<User, User, QAfterFilterCondition> nombreContains(String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'nombre',
@@ -857,8 +817,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition> nombreMatches(
-      String pattern,
+  QueryBuilder<User, User, QAfterFilterCondition> nombreMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -869,8 +828,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreIsEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> nombreIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'nombre',
@@ -879,8 +837,7 @@ extension RegistroDataQueryFilter
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterFilterCondition>
-      nombreIsNotEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> nombreIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'nombre',
@@ -890,187 +847,175 @@ extension RegistroDataQueryFilter
   }
 }
 
-extension RegistroDataQueryObject
-    on QueryBuilder<RegistroData, RegistroData, QFilterCondition> {}
+extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {}
 
-extension RegistroDataQueryLinks
-    on QueryBuilder<RegistroData, RegistroData, QFilterCondition> {}
+extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {}
 
-extension RegistroDataQuerySortBy
-    on QueryBuilder<RegistroData, RegistroData, QSortBy> {
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByApellido() {
+extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {
+  QueryBuilder<User, User, QAfterSortBy> sortByApellido() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'apellido', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByApellidoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByApellidoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'apellido', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByContrasena() {
+  QueryBuilder<User, User, QAfterSortBy> sortByContrasena() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contrasena', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      sortByContrasenaDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByContrasenaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contrasena', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByCorreo() {
+  QueryBuilder<User, User, QAfterSortBy> sortByCorreo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'correo', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByCorreoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByCorreoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'correo', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      sortByFechaNacimiento() {
+  QueryBuilder<User, User, QAfterSortBy> sortByFechaNacimiento() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaNacimiento', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      sortByFechaNacimientoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByFechaNacimientoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaNacimiento', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByNombre() {
+  QueryBuilder<User, User, QAfterSortBy> sortByNombre() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> sortByNombreDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByNombreDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.desc);
     });
   }
 }
 
-extension RegistroDataQuerySortThenBy
-    on QueryBuilder<RegistroData, RegistroData, QSortThenBy> {
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByApellido() {
+extension UserQuerySortThenBy on QueryBuilder<User, User, QSortThenBy> {
+  QueryBuilder<User, User, QAfterSortBy> thenByApellido() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'apellido', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByApellidoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByApellidoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'apellido', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByContrasena() {
+  QueryBuilder<User, User, QAfterSortBy> thenByContrasena() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contrasena', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      thenByContrasenaDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByContrasenaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'contrasena', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByCorreo() {
+  QueryBuilder<User, User, QAfterSortBy> thenByCorreo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'correo', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByCorreoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByCorreoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'correo', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      thenByFechaNacimiento() {
+  QueryBuilder<User, User, QAfterSortBy> thenByFechaNacimiento() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaNacimiento', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy>
-      thenByFechaNacimientoDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByFechaNacimientoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaNacimiento', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByIsarId() {
+  QueryBuilder<User, User, QAfterSortBy> thenByIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByIsarIdDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByIsarIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.desc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByNombre() {
+  QueryBuilder<User, User, QAfterSortBy> thenByNombre() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.asc);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QAfterSortBy> thenByNombreDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByNombreDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.desc);
     });
   }
 }
 
-extension RegistroDataQueryWhereDistinct
-    on QueryBuilder<RegistroData, RegistroData, QDistinct> {
-  QueryBuilder<RegistroData, RegistroData, QDistinct> distinctByApellido(
+extension UserQueryWhereDistinct on QueryBuilder<User, User, QDistinct> {
+  QueryBuilder<User, User, QDistinct> distinctByApellido(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apellido', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QDistinct> distinctByContrasena(
+  QueryBuilder<User, User, QDistinct> distinctByContrasena(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'contrasena', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QDistinct> distinctByCorreo(
+  QueryBuilder<User, User, QDistinct> distinctByCorreo(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'correo', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QDistinct>
-      distinctByFechaNacimiento() {
+  QueryBuilder<User, User, QDistinct> distinctByFechaNacimiento() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'fechaNacimiento');
     });
   }
 
-  QueryBuilder<RegistroData, RegistroData, QDistinct> distinctByNombre(
+  QueryBuilder<User, User, QDistinct> distinctByNombre(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'nombre', caseSensitive: caseSensitive);
@@ -1078,40 +1023,38 @@ extension RegistroDataQueryWhereDistinct
   }
 }
 
-extension RegistroDataQueryProperty
-    on QueryBuilder<RegistroData, RegistroData, QQueryProperty> {
-  QueryBuilder<RegistroData, int, QQueryOperations> isarIdProperty() {
+extension UserQueryProperty on QueryBuilder<User, User, QQueryProperty> {
+  QueryBuilder<User, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
     });
   }
 
-  QueryBuilder<RegistroData, String, QQueryOperations> apellidoProperty() {
+  QueryBuilder<User, String, QQueryOperations> apellidoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apellido');
     });
   }
 
-  QueryBuilder<RegistroData, String, QQueryOperations> contrasenaProperty() {
+  QueryBuilder<User, String, QQueryOperations> contrasenaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'contrasena');
     });
   }
 
-  QueryBuilder<RegistroData, String, QQueryOperations> correoProperty() {
+  QueryBuilder<User, String, QQueryOperations> correoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'correo');
     });
   }
 
-  QueryBuilder<RegistroData, DateTime, QQueryOperations>
-      fechaNacimientoProperty() {
+  QueryBuilder<User, DateTime, QQueryOperations> fechaNacimientoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechaNacimiento');
     });
   }
 
-  QueryBuilder<RegistroData, String, QQueryOperations> nombreProperty() {
+  QueryBuilder<User, String, QQueryOperations> nombreProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'nombre');
     });

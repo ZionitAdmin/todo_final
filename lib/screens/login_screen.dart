@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practica_final/config/input_styles.dart';
+import 'package:todo_practica_final/providers/auth_provider.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
 import 'package:todo_practica_final/widgets/my_filled_button.dart';
 import 'package:todo_practica_final/widgets/my_text_form_field.dart';
@@ -52,24 +53,22 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 MyFilledButton(
-                  label: "Iniciar sesión",
-                  labelSize: 16,
-                  onPressed: () async {
-                    final loginProvider = context.read<LoginProvider>();
-                    final isValid = await loginProvider.login();
-
-                    if (isValid) {
-                      context.go(
-                          '/'); // Si las credenciales son válidas, redirige al home
-                    } else {
-                      // Si las credenciales no son válidas, muestra un mensaje de error
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Credenciales incorrectas')),
-                      );
-                    }
-                  },
-                ),
+                    label: "Iniciar sesión",
+                    labelSize: 16,
+                    onPressed: () async {
+                      final loginProvider = context.read<LoginProvider>();
+                      await loginProvider.login().then((user) {
+                        if (user != null) {
+                          context.read<AuthProvider>().logIn(user);
+                        } else {
+                          // Si las credenciales no son válidas, muestra un mensaje de error
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Credenciales incorrectas')),
+                          );
+                        }
+                      });
+                    }),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {

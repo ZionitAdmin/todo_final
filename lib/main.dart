@@ -3,24 +3,24 @@ import 'package:provider/provider.dart';
 import 'package:todo_practica_final/config/environment.dart';
 import 'package:todo_practica_final/config/router/app_router.dart';
 import 'package:todo_practica_final/providers/appbar_provider.dart';
+import 'package:todo_practica_final/providers/auth_provider.dart';
 import 'package:todo_practica_final/providers/drawer_provider.dart';
 import 'package:todo_practica_final/providers/login_provider.dart';
 import 'package:todo_practica_final/providers/theme_provider.dart';
-import 'package:todo_practica_final/services/db_isar_service.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
   // final registroService = RegistroService();
 
-  final isarDBService = IsarDBService();
-  await isarDBService.db;
+  // final isarDBService = IsarDBService();
+  // await isarDBService.db;
 
   await Environment.initEnvironment();
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => LoginProvider()),
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
       ChangeNotifierProvider(create: (_) => DrawerProvider()),
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ChangeNotifierProvider(create: (_) => AppbarProvider()),
@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: appRouter,
+      routerConfig: appRouter(context),
       theme: context.watch<ThemeProvider>().theme,
     );
   }
