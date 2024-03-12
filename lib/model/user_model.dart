@@ -1,9 +1,9 @@
 import 'package:isar/isar.dart';
-part 'registro_model.g.dart';
 
-// Modelo de datos para el registro
-@Collection()
-class RegistroData {
+part 'user_model.g.dart';
+
+@collection
+class User {
   Id? isarId;
   final String nombre;
   final String apellido;
@@ -11,7 +11,7 @@ class RegistroData {
   final String correo;
   final String contrasena;
 
-  RegistroData({
+  User({
     this.isarId,
     required this.nombre,
     required this.apellido,
