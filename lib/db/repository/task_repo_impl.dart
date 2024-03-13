@@ -1,12 +1,12 @@
-import 'package:todo_practica_final/db/interfaces/my_day_repo.dart';
-import 'package:todo_practica_final/model/my_day_model.dart';
+import 'package:todo_practica_final/db/interfaces/task_repo.dart';
+import 'package:todo_practica_final/model/task_model.dart';
 import 'package:todo_practica_final/services/db_isar_service.dart';
 import 'package:isar/isar.dart';
 
-class MiDiaRepoImpl implements MiDiaRepo {
+class TaskRepoImpl implements TaskRepo {
   late Future<Isar> db;
 
-  MiDiaRepoImpl() {
+  TaskRepoImpl() {
     initDB(); // Llama al método initDB en el constructor
   }
 
@@ -17,28 +17,25 @@ class MiDiaRepoImpl implements MiDiaRepo {
   }
 
   @override
-  Future<void> guardarDatosDeMiDia(Tarjeta data) async {
+  Future<void> guardarTarjeta(Task data) async {
     final isar = await db;
     await isar.writeTxn(() async {
-      await isar.tarjetas.put(data);
+      await isar.tasks.put(data);
     });
   }
+
   @override
-  Future<List<Tarjeta>> obtenerTarjetas() async {
+  Future<List<Task>> obtenerTarjetas() async {
     final isar = await db;
-    // Obtener un IsarQuery directamente desde la colección
-    final query = isar.tarjetas.where().findAll();
-    // Ejecutar la consulta y obtener la lista de tarjetas
+    final query = isar.tasks.where().findAll();
     return query;
   }
 
-
-
   @override
-  Future<void> actualizarTarjeta(Tarjeta data) async {
+  Future<void> actualizarTarjeta(Task data) async {
     final isar = await db;
     await isar.writeTxn(() async {
-      await isar.tarjetas.put(data);
+      await isar.tasks.put(data);
     });
   }
 }

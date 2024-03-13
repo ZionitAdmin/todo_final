@@ -1,9 +1,9 @@
 import 'package:isar/isar.dart';
 
-part 'my_day_model.g.dart';
+part 'task_model.g.dart';
 
 @Collection()
-class Tarjeta {
+class Task {
   Id? isarId;
   late final String titulo;
   late final String descripcion;
@@ -12,7 +12,7 @@ class Tarjeta {
   final List<String> integrantes;
   late final List<String> proyectos;
 
-  Tarjeta({
+  Task({
     this.isarId,
     required this.titulo,
     required this.descripcion,
@@ -22,4 +22,3 @@ class Tarjeta {
     required this.proyectos,
   });
 }
-

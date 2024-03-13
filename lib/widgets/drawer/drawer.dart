@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practica_final/config/constants.dart';
 import 'package:todo_practica_final/providers/appbar_provider.dart';
@@ -23,8 +22,9 @@ class MyDrawer extends StatelessWidget {
     handleTapMenu(BuildContext context, int index, String viewName) {
       AppConstants.homeScaffoldKey.currentState?.closeDrawer();
       context.read<DrawerProvider>().setSelectedMenuIndex(index);
-      context.pushNamed(viewName);
-      context.read<AppbarProvider>().changeTitle(viewName);
+      context
+          .read<AppbarProvider>()
+          .changeTitle(AppConstants.getViewName(viewName));
     }
 
     return Drawer(

@@ -19,4 +19,7 @@ class User {
     required this.correo,
     required this.contrasena,
   });
+
+  String getUserName() =>
+      "${nombre.substring(1, 2)}${apellido.substring(1, 2)}";
 }

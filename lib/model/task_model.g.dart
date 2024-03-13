@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'my_day_model.dart';
+part of 'task_model.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'my_day_model.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetTarjetaCollection on Isar {
-  IsarCollection<Tarjeta> get tarjetas => this.collection();
+extension GetTaskCollection on Isar {
+  IsarCollection<Task> get tasks => this.collection();
 }
 
-const TarjetaSchema = CollectionSchema(
-  name: r'Tarjeta',
-  id: -3367504161800744515,
+const TaskSchema = CollectionSchema(
+  name: r'Task',
+  id: 2998003626758701373,
   properties: {
     r'descripcion': PropertySchema(
       id: 0,
@@ -48,22 +48,22 @@ const TarjetaSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _tarjetaEstimateSize,
-  serialize: _tarjetaSerialize,
-  deserialize: _tarjetaDeserialize,
-  deserializeProp: _tarjetaDeserializeProp,
+  estimateSize: _taskEstimateSize,
+  serialize: _taskSerialize,
+  deserialize: _taskDeserialize,
+  deserializeProp: _taskDeserializeProp,
   idName: r'isarId',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _tarjetaGetId,
-  getLinks: _tarjetaGetLinks,
-  attach: _tarjetaAttach,
+  getId: _taskGetId,
+  getLinks: _taskGetLinks,
+  attach: _taskAttach,
   version: '3.1.0+1',
 );
 
-int _tarjetaEstimateSize(
-  Tarjeta object,
+int _taskEstimateSize(
+  Task object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -87,8 +87,8 @@ int _tarjetaEstimateSize(
   return bytesCount;
 }
 
-void _tarjetaSerialize(
-  Tarjeta object,
+void _taskSerialize(
+  Task object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -101,13 +101,13 @@ void _tarjetaSerialize(
   writer.writeString(offsets[5], object.titulo);
 }
 
-Tarjeta _tarjetaDeserialize(
+Task _taskDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Tarjeta(
+  final object = Task(
     descripcion: reader.readString(offsets[0]),
     fechaLimite: reader.readDateTime(offsets[1]),
     fechaRealizacion: reader.readDateTime(offsets[2]),
@@ -119,7 +119,7 @@ Tarjeta _tarjetaDeserialize(
   return object;
 }
 
-P _tarjetaDeserializeProp<P>(
+P _taskDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -143,28 +143,28 @@ P _tarjetaDeserializeProp<P>(
   }
 }
 
-Id _tarjetaGetId(Tarjeta object) {
+Id _taskGetId(Task object) {
   return object.isarId ?? Isar.autoIncrement;
 }
 
-List<IsarLinkBase<dynamic>> _tarjetaGetLinks(Tarjeta object) {
+List<IsarLinkBase<dynamic>> _taskGetLinks(Task object) {
   return [];
 }
 
-void _tarjetaAttach(IsarCollection<dynamic> col, Id id, Tarjeta object) {
+void _taskAttach(IsarCollection<dynamic> col, Id id, Task object) {
   object.isarId = id;
 }
 
-extension TarjetaQueryWhereSort on QueryBuilder<Tarjeta, Tarjeta, QWhere> {
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhere> anyIsarId() {
+extension TaskQueryWhereSort on QueryBuilder<Task, Task, QWhere> {
+  QueryBuilder<Task, Task, QAfterWhere> anyIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhereClause> isarIdEqualTo(Id isarId) {
+extension TaskQueryWhere on QueryBuilder<Task, Task, QWhereClause> {
+  QueryBuilder<Task, Task, QAfterWhereClause> isarIdEqualTo(Id isarId) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: isarId,
@@ -173,8 +173,7 @@ extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhereClause> isarIdNotEqualTo(
-      Id isarId) {
+  QueryBuilder<Task, Task, QAfterWhereClause> isarIdNotEqualTo(Id isarId) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -196,7 +195,7 @@ extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhereClause> isarIdGreaterThan(Id isarId,
+  QueryBuilder<Task, Task, QAfterWhereClause> isarIdGreaterThan(Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -205,7 +204,7 @@ extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhereClause> isarIdLessThan(Id isarId,
+  QueryBuilder<Task, Task, QAfterWhereClause> isarIdLessThan(Id isarId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -214,7 +213,7 @@ extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterWhereClause> isarIdBetween(
+  QueryBuilder<Task, Task, QAfterWhereClause> isarIdBetween(
     Id lowerIsarId,
     Id upperIsarId, {
     bool includeLower = true,
@@ -231,9 +230,8 @@ extension TarjetaQueryWhere on QueryBuilder<Tarjeta, Tarjeta, QWhereClause> {
   }
 }
 
-extension TarjetaQueryFilter
-    on QueryBuilder<Tarjeta, Tarjeta, QFilterCondition> {
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionEqualTo(
+extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -246,7 +244,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -261,7 +259,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -276,7 +274,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -295,7 +293,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionStartsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -308,7 +306,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionEndsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -321,7 +319,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionContains(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -333,7 +331,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionMatches(
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -345,7 +343,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> descripcionIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'descripcion',
@@ -354,8 +352,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      descripcionIsNotEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> descripcionIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'descripcion',
@@ -364,7 +361,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaLimiteEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaLimiteEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -374,7 +371,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaLimiteGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaLimiteGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -387,7 +384,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaLimiteLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaLimiteLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -400,7 +397,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaLimiteBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaLimiteBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -417,7 +414,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaRealizacionEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaRealizacionEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -427,8 +424,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      fechaRealizacionGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaRealizacionGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -441,8 +437,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      fechaRealizacionLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaRealizacionLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -455,7 +450,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> fechaRealizacionBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> fechaRealizacionBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -472,8 +467,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -486,8 +480,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -502,8 +495,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -518,8 +510,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -538,8 +529,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementStartsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -552,8 +542,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementEndsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -566,8 +555,9 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementContains(
+      String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'integrantes',
@@ -577,8 +567,9 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'integrantes',
@@ -588,8 +579,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesElementIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'integrantes',
@@ -598,7 +588,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
+  QueryBuilder<Task, Task, QAfterFilterCondition>
       integrantesElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -608,8 +598,8 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesLengthEqualTo(int length) {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesLengthEqualTo(
+      int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'integrantes',
@@ -621,7 +611,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> integrantesIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'integrantes',
@@ -633,8 +623,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesIsNotEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'integrantes',
@@ -646,8 +635,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesLengthLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -662,8 +650,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesLengthGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -678,8 +665,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      integrantesLengthBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> integrantesLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -696,7 +682,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdIsNull() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'isarId',
@@ -704,7 +690,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdIsNotNull() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'isarId',
@@ -712,8 +698,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdEqualTo(
-      Id? value) {
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isarId',
@@ -722,7 +707,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdGreaterThan(
     Id? value, {
     bool include = false,
   }) {
@@ -735,7 +720,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdLessThan(
     Id? value, {
     bool include = false,
   }) {
@@ -748,7 +733,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> isarIdBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> isarIdBetween(
     Id? lower,
     Id? upper, {
     bool includeLower = true,
@@ -765,7 +750,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosElementEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -778,8 +763,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -794,8 +778,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -810,7 +793,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosElementBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -829,8 +812,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementStartsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -843,8 +825,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementEndsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -857,8 +838,9 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementContains(
+      String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'proyectos',
@@ -868,7 +850,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosElementMatches(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -880,8 +862,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'proyectos',
@@ -890,8 +871,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosElementIsNotEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'proyectos',
@@ -900,7 +880,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosLengthEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
@@ -913,7 +893,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'proyectos',
@@ -925,7 +905,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosIsNotEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'proyectos',
@@ -937,7 +917,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosLengthLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -952,8 +932,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition>
-      proyectosLengthGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -968,7 +947,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> proyectosLengthBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> proyectosLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -985,7 +964,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloEqualTo(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -998,7 +977,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloGreaterThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1013,7 +992,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloLessThan(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1028,7 +1007,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloBetween(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -1047,7 +1026,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloStartsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1060,7 +1039,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloEndsWith(
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1073,8 +1052,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloContains(
-      String value,
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -1085,8 +1063,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloMatches(
-      String pattern,
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -1097,7 +1074,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloIsEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'titulo',
@@ -1106,7 +1083,7 @@ extension TarjetaQueryFilter
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterFilterCondition> tituloIsNotEmpty() {
+  QueryBuilder<Task, Task, QAfterFilterCondition> tituloIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'titulo',
@@ -1116,159 +1093,155 @@ extension TarjetaQueryFilter
   }
 }
 
-extension TarjetaQueryObject
-    on QueryBuilder<Tarjeta, Tarjeta, QFilterCondition> {}
+extension TaskQueryObject on QueryBuilder<Task, Task, QFilterCondition> {}
 
-extension TarjetaQueryLinks
-    on QueryBuilder<Tarjeta, Tarjeta, QFilterCondition> {}
+extension TaskQueryLinks on QueryBuilder<Task, Task, QFilterCondition> {}
 
-extension TarjetaQuerySortBy on QueryBuilder<Tarjeta, Tarjeta, QSortBy> {
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByDescripcion() {
+extension TaskQuerySortBy on QueryBuilder<Task, Task, QSortBy> {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByDescripcion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descripcion', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByDescripcionDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByDescripcionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descripcion', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByFechaLimite() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByFechaLimite() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaLimite', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByFechaLimiteDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByFechaLimiteDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaLimite', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByFechaRealizacion() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByFechaRealizacion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaRealizacion', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByFechaRealizacionDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByFechaRealizacionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaRealizacion', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByTitulo() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByTitulo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'titulo', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> sortByTituloDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> sortByTituloDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'titulo', Sort.desc);
     });
   }
 }
 
-extension TarjetaQuerySortThenBy
-    on QueryBuilder<Tarjeta, Tarjeta, QSortThenBy> {
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByDescripcion() {
+extension TaskQuerySortThenBy on QueryBuilder<Task, Task, QSortThenBy> {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByDescripcion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descripcion', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByDescripcionDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByDescripcionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descripcion', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByFechaLimite() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByFechaLimite() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaLimite', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByFechaLimiteDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByFechaLimiteDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaLimite', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByFechaRealizacion() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByFechaRealizacion() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaRealizacion', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByFechaRealizacionDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByFechaRealizacionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fechaRealizacion', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByIsarId() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByIsarIdDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByIsarIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.desc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByTitulo() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByTitulo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'titulo', Sort.asc);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QAfterSortBy> thenByTituloDesc() {
+  QueryBuilder<Task, Task, QAfterSortBy> thenByTituloDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'titulo', Sort.desc);
     });
   }
 }
 
-extension TarjetaQueryWhereDistinct
-    on QueryBuilder<Tarjeta, Tarjeta, QDistinct> {
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByDescripcion(
+extension TaskQueryWhereDistinct on QueryBuilder<Task, Task, QDistinct> {
+  QueryBuilder<Task, Task, QDistinct> distinctByDescripcion(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'descripcion', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByFechaLimite() {
+  QueryBuilder<Task, Task, QDistinct> distinctByFechaLimite() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'fechaLimite');
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByFechaRealizacion() {
+  QueryBuilder<Task, Task, QDistinct> distinctByFechaRealizacion() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'fechaRealizacion');
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByIntegrantes() {
+  QueryBuilder<Task, Task, QDistinct> distinctByIntegrantes() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'integrantes');
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByProyectos() {
+  QueryBuilder<Task, Task, QDistinct> distinctByProyectos() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'proyectos');
     });
   }
 
-  QueryBuilder<Tarjeta, Tarjeta, QDistinct> distinctByTitulo(
+  QueryBuilder<Task, Task, QDistinct> distinctByTitulo(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'titulo', caseSensitive: caseSensitive);
@@ -1276,45 +1249,44 @@ extension TarjetaQueryWhereDistinct
   }
 }
 
-extension TarjetaQueryProperty
-    on QueryBuilder<Tarjeta, Tarjeta, QQueryProperty> {
-  QueryBuilder<Tarjeta, int, QQueryOperations> isarIdProperty() {
+extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
+  QueryBuilder<Task, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
     });
   }
 
-  QueryBuilder<Tarjeta, String, QQueryOperations> descripcionProperty() {
+  QueryBuilder<Task, String, QQueryOperations> descripcionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'descripcion');
     });
   }
 
-  QueryBuilder<Tarjeta, DateTime, QQueryOperations> fechaLimiteProperty() {
+  QueryBuilder<Task, DateTime, QQueryOperations> fechaLimiteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechaLimite');
     });
   }
 
-  QueryBuilder<Tarjeta, DateTime, QQueryOperations> fechaRealizacionProperty() {
+  QueryBuilder<Task, DateTime, QQueryOperations> fechaRealizacionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechaRealizacion');
     });
   }
 
-  QueryBuilder<Tarjeta, List<String>, QQueryOperations> integrantesProperty() {
+  QueryBuilder<Task, List<String>, QQueryOperations> integrantesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'integrantes');
     });
   }
 
-  QueryBuilder<Tarjeta, List<String>, QQueryOperations> proyectosProperty() {
+  QueryBuilder<Task, List<String>, QQueryOperations> proyectosProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'proyectos');
     });
   }
 
-  QueryBuilder<Tarjeta, String, QQueryOperations> tituloProperty() {
+  QueryBuilder<Task, String, QQueryOperations> tituloProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'titulo');
     });

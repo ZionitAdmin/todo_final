@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../model/my_day_model.dart'; // Importa el modelo Tarjeta aquí
+import '../model/task_model.dart'; // Importa el modelo Tarjeta aquí
 
 class TarjetaWidget extends StatelessWidget {
-  final Tarjeta task;
+  final Task task;
 
   const TarjetaWidget({Key? key, required this.task}) : super(key: key);
 
@@ -34,7 +34,6 @@ class TarjetaWidget extends StatelessWidget {
             trailing: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-
                 // Otros elementos de acción aquí si es necesario
               ],
             ),
@@ -43,7 +42,4 @@ class TarjetaWidget extends StatelessWidget {
       ),
     );
   }
-
-
-  }
-
+}

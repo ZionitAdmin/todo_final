@@ -2,7 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo_practica_final/model/user_model.dart';
 
-import '../model/my_day_model.dart';
+import '../model/task_model.dart';
 import '../model/project_model.dart';
 
 class IsarDBService {
@@ -19,7 +19,7 @@ class IsarDBService {
       return await Isar.open(
         [
           ProjectSchema,
-          TarjetaSchema,
+          TaskSchema,
           UserSchema,
         ],
         directory: dir.path,
