@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../screens/home_screen.dart';
+import 'package:todo_practica_final/model/task_model.dart';
 
 class ImportantTasksProvider extends ChangeNotifier {
   final List<Task> _importantTasks = [];

@@ -71,9 +71,16 @@ appRouter(BuildContext context) {
     ],
 
     redirect: (_, state) {
+      // final path = state.matchedLocation;
+
       if (auth.isLoggedIn()) {
         return "/";
       }
+
+      if (auth.authStatus == AuthStatus.loggedOut) {
+        return "/login";
+      }
+
       return null;
     },
   );
