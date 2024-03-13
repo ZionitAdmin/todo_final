@@ -17,6 +17,7 @@ class AuthProvider extends ChangeNotifier {
 
   void checkStatus() async {
     changeStatus(AuthStatus.checking);
+    await Future.delayed(const Duration(seconds: 3));
 
     final token = await sPref.getValue<String>(Environment.tokenName);
 
@@ -40,6 +41,7 @@ class AuthProvider extends ChangeNotifier {
   Future<void> logIn(User user) async {
     final jwt = Jwt.sign({"id": user.isarId});
     await sPref.setKeyValue(Environment.tokenName, jwt);
+    this.user = user;
     changeStatus(AuthStatus.loggedIn);
   }
 

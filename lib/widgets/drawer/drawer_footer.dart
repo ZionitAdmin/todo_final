@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_practica_final/providers/auth_provider.dart';
 import 'package:todo_practica_final/providers/theme_provider.dart';
 import 'package:todo_practica_final/widgets/custom_container.dart';
 
@@ -31,9 +32,24 @@ class MyDrawerFooter extends StatelessWidget {
                         return const Icon(Icons
                             .dark_mode); // All other states will use the default thumbIcon.
                       })),
-                  const CircleAvatar(
-                    child: Text("SA"),
-                  )
+                  PopupMenuButton(
+                    child: CircleAvatar(
+                      child: Text(
+                          context.watch<AuthProvider>().user?.getUserName() ??
+                              "NA"),
+                    ),
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: "logout",
+                        child: Text("Cerrar Sesión"),
+                      )
+                    ],
+                    onSelected: (value) {
+                      if (value == "logout") {
+                        context.read<AuthProvider>().logOut();
+                      }
+                    },
+                  ),
                 ]),
           ),
         ),
