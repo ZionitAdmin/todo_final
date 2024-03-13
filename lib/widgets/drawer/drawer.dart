@@ -23,8 +23,10 @@ class MyDrawer extends StatelessWidget {
     handleTapMenu(BuildContext context, int index, String viewName) {
       AppConstants.homeScaffoldKey.currentState?.closeDrawer();
       context.read<DrawerProvider>().setSelectedMenuIndex(index);
-      context.pushNamed(viewName);
-      context.read<AppbarProvider>().changeTitle(viewName);
+      // context.pushNamed(viewName);
+      context
+          .read<AppbarProvider>()
+          .changeTitle(AppConstants.getViewName(viewName));
     }
 
     return Drawer(

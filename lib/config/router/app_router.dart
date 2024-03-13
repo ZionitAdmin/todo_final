@@ -71,18 +71,9 @@ appRouter(BuildContext context) {
     ],
 
     redirect: (_, state) {
-      final path = state.matchedLocation;
-
-      // if (auth.authStatus == AuthStatus.checking) {
-      //   return '/splash';
-      // }
       if (auth.isLoggedIn()) {
         return "/";
       }
-      // if (path == '/splash' && !auth.isLoggedIn()) {
-      //   return '/login';
-      // }
-
       return null;
     },
   );
