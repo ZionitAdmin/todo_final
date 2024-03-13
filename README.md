@@ -5,6 +5,24 @@ este es el proyecto final de tu practica:
 - para instalar las dependencias ejecuta en terminal `flutter pub get`
 - siempre mantener andando el `build_runner` para que este cree las entidades que generes, su comando es : `dart run build_runner watch`.
 
+## Checklist de los puntos completados
+
+- login
+- registro
+- autenticacion de usuario
+- crear una tarea
+- listar tareas filtradas por
+  - mi dia
+  - importante
+  - pendientes
+- CRUD proyectos
+  - crear
+  - listar
+  - editar
+  - modificar
+- pantalla de configuracion
+- cerrar sesion
+
 ## Se listaran los puntos que la aplicacion debe cumplir
 
 Ojo, si tienes problemas con la realizacion de alguno de estos puntos , avisame, y lo resolvemos juntos.

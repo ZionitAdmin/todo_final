@@ -40,12 +40,12 @@ class AuthProvider extends ChangeNotifier {
   Future<void> logIn(User user) async {
     final jwt = Jwt.sign({"id": user.isarId});
     await sPref.setKeyValue(Environment.tokenName, jwt);
+    changeStatus(AuthStatus.loggedIn);
   }
 
   Future<void> logOut() async {
     await sPref.removeKey(Environment.tokenName);
     changeStatus(AuthStatus.loggedOut);
-    return;
   }
 
   void changeStatus(AuthStatus status) {

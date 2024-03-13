@@ -14,7 +14,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final registroService = context.read<RegistroService>(); // Obtén el servicio de registro
+    Future<void> handleLogin(BuildContext context) async {
+      final loginProvider = context.read<LoginProvider>();
+      await loginProvider.login().then((user) {
+        if (user != null) {
+          context.read<AuthProvider>().logIn(user);
+        } else {
+          // Si las credenciales no son válidas, muestra un mensaje de error
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Credenciales incorrectas')),
+          );
+        }
+      });
+    }
 
     return Scaffold(
       body: Center(
@@ -55,25 +67,10 @@ class LoginScreen extends StatelessWidget {
                 MyFilledButton(
                     label: "Iniciar sesión",
                     labelSize: 16,
-                    onPressed: () async {
-                      final loginProvider = context.read<LoginProvider>();
-                      await loginProvider.login().then((user) {
-                        if (user != null) {
-                          context.read<AuthProvider>().logIn(user);
-                        } else {
-                          // Si las credenciales no son válidas, muestra un mensaje de error
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Credenciales incorrectas')),
-                          );
-                        }
-                      });
-                    }),
+                    onPressed: () async => await handleLogin(context)),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    context.go('/registro');
-                  },
+                  onPressed: () => context.go('/registro'),
                   child: const Text('Registrarse'),
                 ),
                 const SizedBox(height: 20),

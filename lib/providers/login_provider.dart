@@ -33,7 +33,6 @@ class LoginProvider extends ChangeNotifier {
 
   Future<User?> login() async {
     final hashedPassword = PasswordService().encryptPassword(_password);
-
     return await registroRepo.verificarCredenciales(_email, hashedPassword);
   }
 }
