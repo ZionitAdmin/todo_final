@@ -55,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void _loadTasks() async {
     final repo = TaskRepoImpl();
     tasks = await repo.obtenerTarjetas();
-    setState(() {});
   }
 
   @override

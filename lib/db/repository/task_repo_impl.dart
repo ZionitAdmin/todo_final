@@ -38,4 +38,10 @@ class TaskRepoImpl implements TaskRepo {
       await isar.tasks.put(data);
     });
   }
+
+  @override
+  Future<void> eliminarTarea(Id taskId) async {
+    final isar = await db;
+    await isar.writeTxn(() => isar.tasks.delete(taskId));
+  }
 }
