@@ -77,7 +77,7 @@ appRouter(BuildContext context) {
         return null;
       }
 
-      if (auth.isLoggedIn()) {
+      if ((path == "/splash" || path == "/login") && auth.isLoggedIn()) {
         return "/";
       }
 
