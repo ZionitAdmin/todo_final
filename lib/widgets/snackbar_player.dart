@@ -5,12 +5,16 @@ SnackBar snackBarPlayer(BuildContext context) {
     content: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Titulo"),
-            Text("SubTitulo"),
-          ],
+        const CircleAvatar(child: Text("CGP")),
+        const SizedBox(width: 10),
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Titulo"),
+              Text("SubTitulo"),
+            ],
+          ),
         ),
         IconButton(
             onPressed: () {
@@ -20,7 +24,6 @@ SnackBar snackBarPlayer(BuildContext context) {
       ],
     ),
     duration: const Duration(days: 365),
-    showCloseIcon: true,
     behavior: SnackBarBehavior.floating,
   );
 }
