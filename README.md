@@ -7,10 +7,12 @@ este es el proyecto final de tu practica:
 
 ## Checklist de los puntos completados
 
-- login
-- registro
-- autenticacion de usuario
-- crear una tarea
+-✅ login
+-✅ registro
+-✅ autenticacion de usuario
+-🕐 crear una tarea
+
+- eliminar tarea
 - listar tareas filtradas por
   - mi dia
   - importante
@@ -21,7 +23,7 @@ este es el proyecto final de tu practica:
   - editar
   - modificar
 - pantalla de configuracion
-- cerrar sesion
+  -✅ cerrar sesion
 
 ## Se listaran los puntos que la aplicacion debe cumplir
 
