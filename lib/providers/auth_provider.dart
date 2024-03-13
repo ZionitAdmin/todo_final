@@ -16,26 +16,32 @@ class AuthProvider extends ChangeNotifier {
   get authStatus => _authStatus;
 
   void checkStatus() async {
-    changeStatus(AuthStatus.checking);
-    await Future.delayed(const Duration(seconds: 3));
+    try {
+      changeStatus(AuthStatus.checking);
+      await Future.delayed(const Duration(seconds: 3));
 
-    final token = await sPref.getValue<String>(Environment.tokenName);
+      final token = await sPref.getValue<String>(Environment.tokenName);
 
-    if (token == null) {
+      if (token == null) {
+        await logOut();
+        return;
+      }
+      final userPayload = Jwt.verify(token);
+
+      final loggedUser = await userRepo.obtenerUsuarioPorId(userPayload['id']);
+
+      if (loggedUser == null) {
+        await logOut();
+        return;
+      }
+
+      user = loggedUser;
+      changeStatus(AuthStatus.loggedIn);
+    } catch (e) {
       await logOut();
-      return;
+    } finally {
+      notifyListeners();
     }
-    final userPayload = Jwt.verify(token);
-
-    final loggedUser = await userRepo.obtenerUsuarioPorId(userPayload['id']);
-
-    if (loggedUser == null) {
-      await logOut();
-      return;
-    }
-
-    user = loggedUser;
-    changeStatus(AuthStatus.loggedIn);
   }
 
   Future<void> logIn(User user) async {
@@ -43,16 +49,17 @@ class AuthProvider extends ChangeNotifier {
     await sPref.setKeyValue(Environment.tokenName, jwt);
     this.user = user;
     changeStatus(AuthStatus.loggedIn);
+    notifyListeners();
   }
 
   Future<void> logOut() async {
     await sPref.removeKey(Environment.tokenName);
     changeStatus(AuthStatus.loggedOut);
+    notifyListeners();
   }
 
   void changeStatus(AuthStatus status) {
     _authStatus = status;
-    notifyListeners();
   }
 
   bool isLoggedIn() => (_authStatus == AuthStatus.loggedIn);
