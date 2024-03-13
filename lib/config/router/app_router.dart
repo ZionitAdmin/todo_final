@@ -71,7 +71,11 @@ appRouter(BuildContext context) {
     ],
 
     redirect: (_, state) {
-      // final path = state.matchedLocation;
+      final path = state.matchedLocation;
+
+      if (path == '/registro') {
+        return null;
+      }
 
       if (auth.isLoggedIn()) {
         return "/";
