@@ -97,7 +97,7 @@ void _taskSerialize(
   writer.writeDateTime(offsets[1], object.fechaLimite);
   writer.writeDateTime(offsets[2], object.fechaRealizacion);
   writer.writeStringList(offsets[3], object.integrantes);
-  writer.writeStringList(offsets[4], object.proyectos);
+  writer.writeString(offsets[4], object.proyectos);
   writer.writeString(offsets[5], object.titulo);
 }
 
@@ -113,7 +113,7 @@ Task _taskDeserialize(
     fechaRealizacion: reader.readDateTime(offsets[2]),
     integrantes: reader.readStringList(offsets[3]) ?? [],
     isarId: id,
-    proyectos: reader.readStringList(offsets[4]) ?? [],
+    proyectos: reader.readString(offsets[4]),
     titulo: reader.readString(offsets[5]),
   );
   return object;
