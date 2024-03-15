@@ -10,15 +10,16 @@ import 'package:todo_practica_final/screens/splash_screen.dart';
 import 'package:todo_practica_final/views/important_view.dart';
 import 'package:todo_practica_final/views/my_day_view.dart';
 import 'package:todo_practica_final/views/pendant_view.dart';
+import 'package:todo_practica_final/providers/task_provider.dart';
 
 import '../../screens/registro_screen.dart';
 import '../../views/project_view.dart';
 
-appRouter(BuildContext context) {
+GoRouter appRouter(BuildContext context) {
   final auth = context.watch<AuthProvider>();
   return GoRouter(
     refreshListenable: AuthProvider(),
-    initialLocation: '/splash', // Establece la ruta inicial como '/login'
+    initialLocation: '/splash',
     routes: [
       GoRoute(
         path: '/splash',
@@ -34,21 +35,28 @@ appRouter(BuildContext context) {
         ),
       ),
       GoRoute(
-        path: '/registro', name: RegistroScreen.name, // Ruta para el registro
+        path: '/registro',
+        name: RegistroScreen.name,
         builder: (context, state) => ChangeNotifierProvider(
           create: (_) => RegisterProvider(),
           child: const RegistroScreen(),
-        ), // Builder del RegistroScreen
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (_, __, navigationShell) =>
-            HomeScreen(children: navigationShell),
+            ChangeNotifierProvider<TaskProvider>(
+              create: (_) => TaskProvider(), // Aquí creas una nueva instancia de TaskProvider
+              builder: (context, _) => const HomeScreen(), // Aquí pasas HomeScreen como hijo de ChangeNotifierProvider
+            ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: [
             GoRoute(
               path: '/',
               name: HomeView.name,
-              builder: (context, state) => const HomeView(),
+              builder: (context, state) => ChangeNotifierProvider<TaskProvider>(
+                create: (_) => TaskProvider(), // Aquí creas una nueva instancia de TaskProvider
+                builder: (context, _) => const HomeView(), // Aquí pasas HomeView como hijo de ChangeNotifierProvider
+              ),
             ),
             GoRoute(
               path: '/important',
@@ -89,3 +97,5 @@ appRouter(BuildContext context) {
     },
   );
 }
+
+

@@ -7,12 +7,12 @@ enum TaskStatus { pending, finished, inWork }
 @Collection()
 class Task {
   Id? isarId;
-  final String titulo;
-  final String descripcion;
-  final DateTime fechaLimite;
+  late final String titulo;
+  late final String descripcion;
+  late final DateTime fechaLimite;
   final DateTime fechaRealizacion;
   final List<String> integrantes;
-  final List<String> proyectos;
+  late final String proyectos;
   final bool esImportante;
   @enumerated
   final TaskStatus taskStatus;
@@ -23,9 +23,10 @@ class Task {
     required this.descripcion,
     required this.fechaLimite,
     required this.fechaRealizacion,
+    required this.proyectos ,
     this.esImportante = false,
     this.taskStatus = TaskStatus.pending,
     this.integrantes = const [],
-    this.proyectos = const [],
+
   });
 }
