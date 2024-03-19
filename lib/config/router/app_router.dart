@@ -45,8 +45,8 @@ GoRouter appRouter(BuildContext context) {
       StatefulShellRoute.indexedStack(
         builder: (_, __, navigationShell) =>
             ChangeNotifierProvider<TaskProvider>(
-              create: (_) => TaskProvider(), // Aquí creas una nueva instancia de TaskProvider
-              builder: (context, _) => const HomeScreen(), // Aquí pasas HomeScreen como hijo de ChangeNotifierProvider
+              create: (_) => TaskProvider(),
+              builder: (context, _) => HomeScreen(child: navigationShell),
             ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: [
@@ -54,8 +54,8 @@ GoRouter appRouter(BuildContext context) {
               path: '/',
               name: HomeView.name,
               builder: (context, state) => ChangeNotifierProvider<TaskProvider>(
-                create: (_) => TaskProvider(), // Aquí creas una nueva instancia de TaskProvider
-                builder: (context, _) => const HomeView(), // Aquí pasas HomeView como hijo de ChangeNotifierProvider
+                create: (_) => TaskProvider(),
+                builder: (context, _) => const HomeView(),
               ),
             ),
             GoRoute(
