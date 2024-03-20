@@ -16,20 +16,18 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  Timer? _timer;
-  late Map<int, String> _timeRemaining;
-  late Map<int, bool> _timerIsActive;
+  late Timer _timer;
+  bool _isTimerActive = false;
 
   @override
   void initState() {
     super.initState();
-    _timeRemaining = {};
-    _timerIsActive = {};
+    _timer = Timer.periodic(const Duration(seconds: 1), _updateTimeRemaining);
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -37,75 +35,58 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Consumer<TaskProvider>(
-        builder: (context, taskProvider, child) {
-          return ListView.builder(
-            itemCount: taskProvider.tasks.length,
-            itemBuilder: (context, index) {
-              final task = taskProvider.tasks[index];
-              final timeRemaining = _getTimeRemaining(task.fechaLimite);
+      body: Column(
+        children: [
+          Expanded(
+            child: Consumer<TaskProvider>(
+              builder: (context, taskProvider, child) {
+                return ListView.builder(
+                  itemCount: taskProvider.tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = taskProvider.tasks[index];
+                    final timeRemaining = _getTimeRemaining(task.fechaLimite);
 
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Stack(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Proyecto: ${task.proyectos}'),
-                                const SizedBox(height: 8),
-                                Text('Título: ${task.titulo}'),
-                                const SizedBox(height: 8),
-                                Text('Descripción: ${task.descripcion}'),
-                                const SizedBox(height: 8),
-                                Text(
-                                    'Fecha límite: ${task.fechaLimite.toString()}'),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 8,
-                            right: 8,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(0.8),
-                                borderRadius: BorderRadius.circular(8),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: ListTile(
+                          title: Text('Proyecto: ${task.proyectos}'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Título: ${task.titulo}'),
+                              Text('Descripción: ${task.descripcion}'),
+                              Text('Fecha límite: ${task.fechaLimite.toString()}'),
+                              SizedBox(height: 8),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                color: Colors.red,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(_isTimerActive ? Icons.pause : Icons.play_arrow),
+                                      onPressed: () => _toggleTimer(index),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(timeRemaining),
+                                  ],
+                                ),
                               ),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(_timerIsActive[index] ?? false
-                                        ? Icons.pause
-                                        : Icons.play_arrow),
-                                    onPressed: () => _toggleTimer(index),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(_timeRemaining[index] ??
-                                      timeRemaining), // Cronómetro
-                                ],
-                              ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addRandomTask(context),
@@ -133,26 +114,19 @@ class _HomeViewState extends State<HomeView> {
     final hours = difference.inHours % 24;
     final minutes = difference.inMinutes % 60;
     final seconds = difference.inSeconds % 60;
-    final timeRemaining =
-        '$days días $hours horas $minutes minutos $seconds segundos';
-    return timeRemaining;
+    return '$days días $hours horas $minutes minutos $seconds segundos';
   }
 
   void _toggleTimer(int index) {
     setState(() {
-      if (_timerIsActive.containsKey(index) &&
-          _timerIsActive[index] == true) {
-        _timer?.cancel();
-        _timerIsActive[index] = false;
-      } else {
-        _timerIsActive[index] = true;
-        final task = Provider.of<TaskProvider>(context, listen: false).tasks[index];
-        _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-          setState(() {
-            _timeRemaining[index] = _getTimeRemaining(task.fechaLimite);
-          });
-        });
-      }
+      _isTimerActive = !_isTimerActive; // Cambiar el estado del cronómetro
+    });
+  }
+
+  void _updateTimeRemaining(Timer timer) {
+    // Implementar la lógica para actualizar el tiempo restante
+    setState(() {
+      // Actualizar el tiempo restante de las tareas
     });
   }
 }

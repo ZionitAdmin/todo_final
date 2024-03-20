@@ -6,8 +6,9 @@ import '../config/constants.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key, required this.child});
 
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +21,8 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       drawer: const MyDrawer(),
-      body: const Center(
+       body: child,
 
-
-      ),
     );
   }
 }
